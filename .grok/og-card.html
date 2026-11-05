@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face {
+    font-family: "Catalog Serif";
+    src: url("file:///usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf") format("truetype");
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Catalog Serif";
+    src: url("file:///usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf") format("truetype");
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: "Catalog Sans";
+    src: url("file:///usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf") format("truetype");
+    font-weight: 400;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 1200px;
+    height: 630px;
+    background: #F3EEE6;
+    overflow: hidden;
+  }
+  .sheet {
+    width: 1200px;
+    height: 630px;
+    box-sizing: border-box;
+    position: relative;
+    background: #F3EEE6;
+    color: #1C1612;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 58px 80px 42px;
+  }
+  .sheet::before,
+  .sheet::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .sheet::before {
+    inset: 22px;
+    border: 1.5px solid #1C1612;
+  }
+  .sheet::after {
+    inset: 29px;
+    border: 1px solid #9C3B22;
+  }
+  .kicker {
+    margin: 10px 0 0;
+    font-family: "Catalog Sans", "Liberation Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.46em;
+    text-transform: uppercase;
+    color: #9C3B22;
+    padding-left: 0.46em;
+  }
+  h1 {
+    margin: auto 0 0;
+    padding: 0;
+    text-align: center;
+    font-family: "Catalog Serif", "Liberation Serif", serif;
+    font-weight: 400;
+    font-size: 108px;
+    line-height: 0.84;
+    color: #1C1612;
+  }
+  h1 span {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  .line-a { letter-spacing: 0.18em; padding-left: 0.18em; }
+  .line-b { letter-spacing: 0.55em; padding-left: 0.55em; }
+  .rule {
+    width: 148px;
+    height: 0;
+    border: 0;
+    border-top: 1.5px solid #9C3B22;
+    margin: 26px 0 0;
+  }
+  .lines {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+    margin: 28px 0 0;
+    padding: 0;
+  }
+  .lines li {
+    width: 148px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .plate {
+    width: 112px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .label {
+    font-family: "Catalog Sans", "Liberation Sans", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1C1612;
+    padding-left: 0.2em;
+  }
+  .foot {
+    margin: 22px 0 6px;
+    font-family: "Catalog Serif", "Liberation Serif", serif;
+    font-size: 15px;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: #1C1612;
+  }
+  svg { display: block; }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <p class="kicker">Maison de gros · Conakry</p>
+    <h1>
+      <span class="line-a">KALOUM</span>
+      <span class="line-b">GROS</span>
+    </h1>
+    <hr class="rule" />
+    <ul class="lines">
+      <li>
+        <div class="plate" aria-hidden="true">
+          <svg width="52" height="78" viewBox="0 0 52 78" fill="none">
+            <rect x="6" y="3" width="40" height="72" rx="6" stroke="#1C1612" stroke-width="2"/>
+            <rect x="11" y="12" width="30" height="46" stroke="#9C3B22" stroke-width="1.5"/>
+            <circle cx="26" cy="66" r="2.2" fill="#1C1612"/>
+          </svg>
+        </div>
+        <span class="label">Téléphones</span>
+      </li>
+      <li>
+        <div class="plate" aria-hidden="true">
+          <svg width="58" height="78" viewBox="0 0 58 78" fill="none">
+            <rect x="21" y="2" width="16" height="14" rx="2" stroke="#1C1612" stroke-width="2"/>
+            <rect x="21" y="62" width="16" height="14" rx="2" stroke="#1C1612" stroke-width="2"/>
+            <circle cx="29" cy="39" r="18" stroke="#1C1612" stroke-width="2"/>
+            <circle cx="29" cy="39" r="1.8" fill="#9C3B22"/>
+            <path d="M29 39 V26.5" stroke="#9C3B22" stroke-width="1.75" stroke-linecap="round"/>
+            <path d="M29 39 L39.5 44" stroke="#1C1612" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="label">Montres</span>
+      </li>
+      <li>
+        <div class="plate" aria-hidden="true">
+          <svg width="86" height="40" viewBox="0 0 86 40" fill="none">
+            <path d="M4 18 H14" stroke="#1C1612" stroke-width="2" stroke-linecap="round"/>
+            <path d="M72 18 H82" stroke="#1C1612" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="28" cy="20" rx="15" ry="11" fill="#9C3B22" fill-opacity="0.16" stroke="#1C1612" stroke-width="2"/>
+            <ellipse cx="58" cy="20" rx="15" ry="11" fill="#9C3B22" fill-opacity="0.16" stroke="#1C1612" stroke-width="2"/>
+            <path d="M43 18 Q50 28 57 18" stroke="#1C1612" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <span class="label">Lunettes</span>
+      </li>
+      <li>
+        <div class="plate" aria-hidden="true">
+          <svg width="52" height="78" viewBox="0 0 52 78" fill="none">
+            <rect x="18" y="3" width="16" height="8" rx="1" stroke="#1C1612" stroke-width="2"/>
+            <rect x="22" y="11" width="8" height="8" stroke="#1C1612" stroke-width="2"/>
+            <rect x="8" y="19" width="36" height="54" rx="3" stroke="#1C1612" stroke-width="2"/>
+            <rect x="10.5" y="46" width="31" height="25" fill="#9C3B22" fill-opacity="0.38"/>
+          </svg>
+        </div>
+        <span class="label">Parfums</span>
+      </li>
+    </ul>
+    <p class="foot">Vente en gros aux détaillants</p>
+  </div>
+</body>
+</html>

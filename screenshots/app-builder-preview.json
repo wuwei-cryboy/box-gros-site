@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Kaloum Gros — Grossiste à Conakry",
+      "hasCanvas": false,
+      "bodyTextLen": 2382,
+      "bodyTextHash": "fa7b4737b67da95ea0a54f57ca5af29272baba92be2d961ff19802c903e89a67",
+      "bodyTextPrefix": "Kaloum GROS FR / 中文 Devis GROSSISTE · CONAKRY Le prix du carton,",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Kaloum Gros — Grossiste à Conakry",
+      "hasCanvas": false,
+      "bodyTextLen": 2376,
+      "bodyTextHash": "767c30e529848596d46c63add6749c645b185e5a5a94cda2c9805ec0a82a6d3f",
+      "bodyTextPrefix": "Kaloum GROS FR / 中文 GROSSISTE · CONAKRY Le prix du carton, affic",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
