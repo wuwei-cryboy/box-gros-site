@@ -3,4 +3,7 @@ dist/
 build/
 .output/
 .env
+.env.local
 *.log
+.vercel/
+.npm-cache/
