@@ -6,8 +6,12 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { nitro } from "nitro/vite";
-// ponytail: dev-only visual-edit bridge; its deps are linked into node_modules.
-import { visualEdit } from "dsh-visual-edit/vite";
+// ponytail: dev-only visual-edit bridge; dynamic import so prod builds (without the dep) still load.
+let visualEditFn: ((o: { allowedOrigins: string[] }) => Plugin) | undefined;
+try {
+  const mod = await import("dsh-visual-edit/vite");
+  visualEditFn = mod.visualEdit;
+} catch { /* not installed in prod */ }
 // TanStack Start SSR HTML bypasses vite's index.html pipeline, so the bridge's
 // transformIndexHtml tag never lands in the SSR response. Inject the inspector
 // manually; native DSH mode ignores this and uses its own in-memory injection.
@@ -213,7 +217,7 @@ export default defineConfig(({ command, isPreview }) => ({
     tailwindcss(),
     tanstackStart(),
     // dsh-visual-edit dev bridge; dev-mode only, so production builds are untouched.
-    ...(command === "build" || isPreview ? [] : [visualEdit({ allowedOrigins: ["http://127.0.0.1:43129"] }), visualEditSsrPlugin()]),
+    ...(command === "build" || isPreview ? [] : visualEditFn ? [visualEditFn({ allowedOrigins: ["http://127.0.0.1:43129"] }), visualEditSsrPlugin()] : []),
     ...(command === "build" || isPreview
       ? [
           nitro({
