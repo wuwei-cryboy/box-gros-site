@@ -7,6 +7,7 @@ import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
 import { CatalogPhoto } from "@/components/catalog-photo";
+import { useState, useCallback, useRef } from "react";
 
 export function ProductCard({ product, layout, onMouseEnter }: { product: Product; layout: "tile" | "row"; onMouseEnter?: () => void }) {
   const lang = useHydratedLang();
@@ -17,6 +18,22 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
   const category = categoryById(product.category);
   const price = unitGnf(product, product.moq);
   const row = layout === "row";
+  const [adding, setAdding] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleAdd = useCallback(() => {
+    if (adding || !ready) return;
+    setAdding(true);
+    // 乐观 UI：先更新本地状态，再同步到 store
+    if (!line) {
+      add(product.slug, product.moq);
+    } else {
+      add(product.slug, line.qty + product.carton);
+    }
+    // 防抖：300ms 后恢复按钮状态
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => setAdding(false), 300);
+  }, [line, add, product, ready, adding]);
 
   return (
     <article
@@ -56,13 +73,15 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
           </p>
           <Button
             variant={line ? "outline" : "primary"}
-            disabled={!ready}
-            onClick={() => {
-              if (!line) add(product.slug, product.moq);
-              else add(product.slug, line.qty + product.carton);
-            }}
+            disabled={!ready || adding}
+            onClick={handleAdd}
           >
-            {line ? copy.addMore : copy.add}
+            {adding ? (
+              <span className="flex items-center gap-1">
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
+                <span>{copy.adding ?? (lang === "zh" ? "添加中..." : "Ajout...")}</span>
+              </span>
+            ) : line ? copy.addMore : copy.add}
           </Button>
         </div>
       </div>
