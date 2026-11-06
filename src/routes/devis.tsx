@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
 import { cities, getProduct, t, unitGnf } from "@/data/catalog";
@@ -9,6 +9,7 @@ import { buildQuoteMessage, waHref } from "@/lib/quote-message";
 import { useQuote } from "@/lib/quote-store";
 import { Button } from "@/components/ui/button";
 import { useConfirmClear } from "@/components/shell";
+import { enqueueSubmission, flushQueue, initOfflineQueue, getQueueLength } from "@/lib/offline-queue";
 
 export const Route = createFileRoute("/devis")({
   component: DevisPage,
@@ -32,6 +33,15 @@ function DevisPage() {
   const [message, setMessage] = useState("");
   const [sig, setSig] = useState("");
   const [copied, setCopied] = useState(false);
+  const [queueLen, setQueueLen] = useState(0);
+
+  // 初始化离线队列 + 定时刷新队列长度
+  useEffect(() => {
+    initOfflineQueue();
+    const timer = setInterval(() => getQueueLength().then(setQueueLen), 5000);
+    getQueueLength().then(setQueueLen);
+    return () => clearInterval(timer);
+  }, []);
 
   const resolved = useMemo(
     () =>
@@ -65,9 +75,10 @@ function DevisPage() {
       return;
     }
     setError("");
+    const linesPayload = resolved.map((line) => ({ product: line.product, qty: line.qty }));
     const next = buildQuoteMessage({
       lang,
-      lines: resolved.map((line) => ({ product: line.product, qty: line.qty })),
+      lines: linesPayload,
       boutique,
       cityId,
       tel,
@@ -76,6 +87,13 @@ function DevisPage() {
     setMessage(next);
     setSig(signature);
     setCopied(false);
+
+    // 离线队列：入队 + 尝试即时刷单
+    const payload = { lang, lines: linesPayload, boutique, cityId, tel, note };
+    enqueueSubmission(payload).then(() => {
+      getQueueLength().then(setQueueLen);
+      if (navigator.onLine) flushQueue().then(() => getQueueLength().then(setQueueLen));
+    });
   }
 
   if (!ready) {
@@ -174,6 +192,12 @@ function DevisPage() {
       </div>
       {grand < MIN_ORDER_GNF ? <p className="mt-3 text-sm text-primary">{copy.underMin}</p> : null}
       <p className="mt-2 text-sm text-muted">{copy.mixNote}</p>
+      {queueLen > 0 && (
+        <p className="mt-2 text-sm text-muted flex items-center gap-1">
+          <span className="w-2 h-2 rounded-full bg-muted" />
+          离线队列：{queueLen} 条待发送
+        </p>
+      )}
 
       <form
         className="mt-8 grid gap-4"
