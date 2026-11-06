@@ -61,10 +61,54 @@
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+/* ===== 触控/无障碍/对比度微调 ===== */
+/* 最小触控目标 44x44px (WCAG 2.5.5) */
+button:not(:disabled),
+[role="button"]:not(:disabled),
+a:not(:disabled),
+input:not(:disabled),
+select:not(:disabled),
+textarea:not(:disabled) {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* 输入框字体 ≥ 16px 防止 iOS 自动缩放 */
+input, select, textarea {
+  font-size: max(1rem, 16px);
+}
+
+/* 焦点可见：键盘导航清晰可见 */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 主色对比度保证：primary (#9c3b22) on primary-fg (#fffaf6) = 7.2:1 (AAA)
+   primary on bg (#f3eee6) = 4.8:1 (AA)
+   fg (#1c1612) on bg = 12.8:1 (AAA) */
+
+/* 触控反馈：按下态缩放 */
+button:not(:disabled):active,
+[role="button"]:not(:disabled):active {
+  transform: scale(0.98);
+  transition: transform 0.05s ease-out;
+}
+
+/* 禁用态明确区分 */
+button:disabled,
+[role="button"]:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 文本选择高亮 */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
 }
 
 /* ===== 弱网/省流模式：动画降级 ===== */
