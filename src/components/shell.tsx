@@ -1,11 +1,11 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ClipboardList } from "lucide-react";
-import { SHOWROOM, t, unitUsd } from "@/data/catalog";
+import { SHOWROOM, t, unitGnf } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
 import { useLang } from "@/lib/lang-store";
-import { formatUsd } from "@/lib/money";
+import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { getProduct } from "@/data/catalog";
@@ -29,7 +29,7 @@ export function Shell({ children }: { children: ReactNode }) {
   const total = lines.reduce((sum, line) => {
     const product = getProduct(line.slug);
     if (!product) return sum;
-    return sum + unitUsd(product, line.qty) * line.qty;
+    return sum + unitGnf(product, line.qty) * line.qty;
   }, 0);
 
   return (
@@ -38,7 +38,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="h-1 bg-primary" />
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
           <Link to="/" search={homeSearch} className="flex items-baseline gap-2">
-            <span className="font-display text-xl leading-none">Kaloum</span>
+            <span className="font-display text-xl leading-none">Box</span>
             <span className={cn("text-xs text-muted", lang === "fr" && "tracking-widest")}>GROS</span>
           </Link>
           <div className="flex items-center gap-1">
@@ -78,7 +78,7 @@ export function Shell({ children }: { children: ReactNode }) {
       <footer className="border-t border-line">
         <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-3">
           <div>
-            <p className="font-display text-2xl">Kaloum Gros</p>
+            <p className="font-display text-2xl">Box Gros</p>
             <p className="mt-2 text-sm text-muted">{copy.address}</p>
             <p className="mt-1 text-sm text-muted">{copy.hours}</p>
             <a href={`tel:${SHOWROOM.tel}`} className="mt-3 inline-flex h-11 items-center text-sm">
@@ -103,7 +103,7 @@ export function Shell({ children }: { children: ReactNode }) {
               <p className="text-sm">
                 {lines.length} {copy.refs}
               </p>
-              <p className="font-display text-xl tabular-nums text-primary">{formatUsd(total, lang)}</p>
+              <p className="font-display text-xl tabular-nums text-primary">{formatGnf(total, lang)}</p>
             </div>
             <Link
               to="/devis"

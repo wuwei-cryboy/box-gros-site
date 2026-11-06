@@ -7,3 +7,8 @@ build/
 *.log
 .vercel/
 .npm-cache/
+
+# local data tools
+noop.mjs
+scripts/extract-prices.mjs
+scripts/add-compare-col.mjs

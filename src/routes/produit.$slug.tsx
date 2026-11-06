@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
-import { categoryById, getProduct, products, t, unitUsd } from "@/data/catalog";
+import { categoryById, getProduct, products, t, unitGnf } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
-import { formatGnfFromUsd, formatUsd } from "@/lib/money";
+import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
@@ -59,7 +59,7 @@ function ProductPage() {
   }
 
   const category = categoryById(product.category);
-  const unit = unitUsd(product, qty);
+  const unit = unitGnf(product, qty);
   const related = products.filter((item) => item.category === product.category && item.slug !== product.slug);
 
   function commit(next: number) {
@@ -90,9 +90,9 @@ function ProductPage() {
           <h1 className="mt-2 font-display text-4xl leading-none sm:text-5xl">{product.name}</h1>
           <p className="mt-3 text-muted">{t(lang, product.story)}</p>
           <p className="mt-4 text-sm">{t(lang, product.stockLabel)}</p>
-          <p className="mt-6 font-display text-4xl tabular-nums text-primary">{formatUsd(unit, lang)}</p>
+          <p className="mt-6 font-display text-4xl tabular-nums text-primary">{formatGnf(unit, lang)}</p>
           <p className="mt-1 text-sm text-muted tabular-nums">
-            {copy.about} {formatGnfFromUsd(unit, lang)} {copy.perPiece}
+            {copy.about} {formatGnf(unit, lang)} {copy.perPiece}
           </p>
 
           <div className="mt-6 border border-line">
@@ -101,7 +101,7 @@ function ProductPage() {
               <span className="text-right">{copy.priceCol}</span>
             </div>
             {product.tiers.map((tier) => {
-              const active = unit === tier.usd;
+              const active = unit === tier.gnf;
               return (
                 <div
                   key={tier.min}
@@ -113,7 +113,7 @@ function ProductPage() {
                   <span>
                     {tier.min}+ {copy.pieces}
                   </span>
-                  <span className="text-right">{formatUsd(tier.usd, lang)}</span>
+                  <span className="text-right">{formatGnf(tier.gnf, lang)}</span>
                 </div>
               );
             })}

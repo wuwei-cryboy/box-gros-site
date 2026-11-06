@@ -20,7 +20,7 @@ export type Product = {
   gallery?: string[];
   moq: number;
   carton: number;
-  tiers: { min: number; usd: number }[];
+  tiers: { min: number; gnf: number }[];
   stock: "stock" | "arrivage";
   stockLabel: L;
 };
@@ -106,9 +106,9 @@ export const products: Product[] = [
     moq: 10,
     carton: 10,
     tiers: [
-      { min: 10, usd: 118 },
-      { min: 40, usd: 109 },
-      { min: 100, usd: 99 },
+      { min: 10, gnf: 2801000 },
+      { min: 40, gnf: 2587000 },
+      { min: 100, gnf: 2350000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -137,9 +137,9 @@ export const products: Product[] = [
     moq: 10,
     carton: 10,
     tiers: [
-      { min: 10, usd: 118 },
-      { min: 40, usd: 109 },
-      { min: 100, usd: 99 },
+      { min: 10, gnf: 2801000 },
+      { min: 40, gnf: 2587000 },
+      { min: 100, gnf: 2350000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -169,9 +169,9 @@ export const products: Product[] = [
     moq: 10,
     carton: 10,
     tiers: [
-      { min: 10, usd: 118 },
-      { min: 40, usd: 109 },
-      { min: 100, usd: 99 },
+      { min: 10, gnf: 2801000 },
+      { min: 40, gnf: 2587000 },
+      { min: 100, gnf: 2350000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -200,9 +200,9 @@ export const products: Product[] = [
     moq: 10,
     carton: 10,
     tiers: [
-      { min: 10, usd: 118 },
-      { min: 40, usd: 109 },
-      { min: 100, usd: 99 },
+      { min: 10, gnf: 1887000 },
+      { min: 40, gnf: 1743000 },
+      { min: 100, gnf: 1583000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -232,9 +232,9 @@ export const products: Product[] = [
     moq: 20,
     carton: 10,
     tiers: [
-      { min: 20, usd: 64 },
-      { min: 80, usd: 58 },
-      { min: 200, usd: 52 },
+      { min: 20, gnf: 2436000 },
+      { min: 80, gnf: 2207000 },
+      { min: 200, gnf: 1979000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -263,9 +263,9 @@ export const products: Product[] = [
     moq: 10,
     carton: 10,
     tiers: [
-      { min: 10, usd: 118 },
-      { min: 40, usd: 109 },
-      { min: 100, usd: 99 },
+      { min: 10, gnf: 1418000 },
+      { min: 40, gnf: 1310000 },
+      { min: 100, gnf: 1190000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -296,9 +296,9 @@ export const products: Product[] = [
     moq: 12,
     carton: 6,
     tiers: [
-      { min: 12, usd: 22 },
-      { min: 48, usd: 19.5 },
-      { min: 96, usd: 17.5 },
+      { min: 12, gnf: 519000 },
+      { min: 48, gnf: 460000 },
+      { min: 96, gnf: 413000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -330,9 +330,9 @@ export const products: Product[] = [
     moq: 12,
     carton: 6,
     tiers: [
-      { min: 12, usd: 22 },
-      { min: 48, usd: 19.5 },
-      { min: 96, usd: 17.5 },
+      { min: 12, gnf: 519000 },
+      { min: 48, gnf: 460000 },
+      { min: 96, gnf: 413000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -364,9 +364,9 @@ export const products: Product[] = [
     moq: 12,
     carton: 6,
     tiers: [
-      { min: 12, usd: 22 },
-      { min: 48, usd: 19.5 },
-      { min: 96, usd: 17.5 },
+      { min: 12, gnf: 176000 },
+      { min: 48, gnf: 156000 },
+      { min: 96, gnf: 140000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -396,9 +396,9 @@ export const products: Product[] = [
     moq: 24,
     carton: 12,
     tiers: [
-      { min: 24, usd: 16.5 },
-      { min: 72, usd: 14.5 },
-      { min: 144, usd: 12.8 },
+      { min: 24, gnf: 532000 },
+      { min: 72, gnf: 468000 },
+      { min: 144, gnf: 413000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -426,9 +426,9 @@ export const products: Product[] = [
     moq: 12,
     carton: 6,
     tiers: [
-      { min: 12, usd: 22 },
-      { min: 48, usd: 19.5 },
-      { min: 96, usd: 17.5 },
+      { min: 12, gnf: 176000 },
+      { min: 48, gnf: 156000 },
+      { min: 96, gnf: 140000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -460,9 +460,9 @@ export const products: Product[] = [
     moq: 24,
     carton: 12,
     tiers: [
-      { min: 24, usd: 16.5 },
-      { min: 72, usd: 14.5 },
-      { min: 144, usd: 12.8 },
+      { min: 24, gnf: 532000 },
+      { min: 72, gnf: 468000 },
+      { min: 144, gnf: 413000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -492,9 +492,9 @@ export const products: Product[] = [
     moq: 12,
     carton: 6,
     tiers: [
-      { min: 12, usd: 22 },
-      { min: 48, usd: 19.5 },
-      { min: 96, usd: 17.5 },
+      { min: 12, gnf: 322000 },
+      { min: 48, gnf: 285000 },
+      { min: 96, gnf: 256000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -532,9 +532,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 4.2 },
-      { min: 144, usd: 3.6 },
-      { min: 360, usd: 3.1 },
+      { min: 48, gnf: 241000 },
+      { min: 144, gnf: 207000 },
+      { min: 360, gnf: 178000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -559,9 +559,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 4.2 },
-      { min: 144, usd: 3.6 },
-      { min: 360, usd: 3.1 },
+      { min: 48, gnf: 241000 },
+      { min: 144, gnf: 207000 },
+      { min: 360, gnf: 178000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -592,9 +592,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 4.2 },
-      { min: 144, usd: 3.6 },
-      { min: 360, usd: 3.1 },
+      { min: 48, gnf: 241000 },
+      { min: 144, gnf: 207000 },
+      { min: 360, gnf: 178000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -625,9 +625,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 4.2 },
-      { min: 144, usd: 3.6 },
-      { min: 360, usd: 3.1 },
+      { min: 48, gnf: 203000 },
+      { min: 144, gnf: 174000 },
+      { min: 360, gnf: 150000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -658,9 +658,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 4.2 },
-      { min: 144, usd: 3.6 },
-      { min: 360, usd: 3.1 },
+      { min: 48, gnf: 309000 },
+      { min: 144, gnf: 265000 },
+      { min: 360, gnf: 228000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -694,9 +694,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 4.2 },
-      { min: 144, usd: 3.6 },
-      { min: 360, usd: 3.1 },
+      { min: 48, gnf: 322000 },
+      { min: 144, gnf: 276000 },
+      { min: 360, gnf: 238000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -723,9 +723,9 @@ export const products: Product[] = [
     moq: 24,
     carton: 12,
     tiers: [
-      { min: 24, usd: 7.4 },
-      { min: 72, usd: 6.6 },
-      { min: 144, usd: 5.9 },
+      { min: 24, gnf: 142000 },
+      { min: 72, gnf: 126000 },
+      { min: 144, gnf: 113000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -767,9 +767,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 5.2 },
-      { min: 144, usd: 4.5 },
-      { min: 360, usd: 3.8 },
+      { min: 48, gnf: 155000 },
+      { min: 144, gnf: 134000 },
+      { min: 360, gnf: 113000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -797,9 +797,9 @@ export const products: Product[] = [
     moq: 24,
     carton: 12,
     tiers: [
-      { min: 24, usd: 9.8 },
-      { min: 72, usd: 8.6 },
-      { min: 144, usd: 7.4 },
+      { min: 24, gnf: 232000 },
+      { min: 72, gnf: 203000 },
+      { min: 144, gnf: 175000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -828,9 +828,9 @@ export const products: Product[] = [
     moq: 24,
     carton: 12,
     tiers: [
-      { min: 24, usd: 6.2 },
-      { min: 72, usd: 5.4 },
-      { min: 144, usd: 4.8 },
+      { min: 24, gnf: 146000 },
+      { min: 72, gnf: 127000 },
+      { min: 144, gnf: 113000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -860,9 +860,9 @@ export const products: Product[] = [
     moq: 24,
     carton: 12,
     tiers: [
-      { min: 24, usd: 6.8 },
-      { min: 72, usd: 5.9 },
-      { min: 144, usd: 5.2 },
+      { min: 24, gnf: 148000 },
+      { min: 72, gnf: 128000 },
+      { min: 144, gnf: 113000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -891,9 +891,9 @@ export const products: Product[] = [
     moq: 48,
     carton: 24,
     tiers: [
-      { min: 48, usd: 3.4 },
-      { min: 144, usd: 2.9 },
-      { min: 360, usd: 2.5 },
+      { min: 48, gnf: 152000 },
+      { min: 144, gnf: 130000 },
+      { min: 360, gnf: 112000 },
     ],
     stock: "stock",
     stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
@@ -914,10 +914,10 @@ export function categoryById(id: CategoryId) {
   return found;
 }
 
-export function unitUsd(product: Product, qty: number): number {
-  let price = product.tiers[0]?.usd ?? 0;
+export function unitGnf(product: Product, qty: number): number {
+  let price = product.tiers[0]?.gnf ?? 0;
   for (const tier of product.tiers) {
-    if (qty >= tier.min) price = tier.usd;
+    if (qty >= tier.min) price = tier.gnf;
   }
   return price;
 }

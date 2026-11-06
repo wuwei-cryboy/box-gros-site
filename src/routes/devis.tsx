@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
-import { cities, getProduct, t, unitUsd } from "@/data/catalog";
+import { cities, getProduct, t, unitGnf } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
-import { formatGnfFromUsd, formatUsd, MIN_ORDER_USD } from "@/lib/money";
+import { formatGnf, MIN_ORDER_GNF } from "@/lib/money";
 import { buildQuoteMessage, waHref } from "@/lib/quote-message";
 import { useQuote } from "@/lib/quote-store";
 import { Button } from "@/components/ui/button";
@@ -38,7 +38,7 @@ function DevisPage() {
       lines.flatMap((line) => {
         const product = getProduct(line.slug);
         if (!product) return [];
-        const unit = unitUsd(product, line.qty);
+        const unit = unitGnf(product, line.qty);
         return [{ ...line, product, unit, total: unit * line.qty }];
       }),
     [lines],
@@ -116,7 +116,7 @@ function DevisPage() {
                 </button>
               </div>
               <p className="mt-1 text-sm tabular-nums text-muted">
-                {formatUsd(line.unit, lang)} {copy.perPiece}
+                {formatGnf(line.unit, lang)} {copy.perPiece}
               </p>
               <div className="mt-3 flex items-center justify-between gap-3">
                 <div className="flex items-center border border-line">
@@ -141,7 +141,7 @@ function DevisPage() {
                     <Plus className="size-4" />
                   </button>
                 </div>
-                <p className="font-display text-xl tabular-nums">{formatUsd(line.total, lang)}</p>
+                <p className="font-display text-xl tabular-nums">{formatGnf(line.total, lang)}</p>
               </div>
             </div>
           </li>
@@ -151,9 +151,9 @@ function DevisPage() {
       <div className="mt-6 flex items-end justify-between gap-3 border-t border-line pt-4">
         <div>
           <p className="text-sm text-muted">{copy.subtotal}</p>
-          <p className="font-display text-3xl tabular-nums text-primary">{formatUsd(grand, lang)}</p>
+          <p className="font-display text-3xl tabular-nums text-primary">{formatGnf(grand, lang)}</p>
           <p className="text-sm text-muted tabular-nums">
-            {copy.about} {formatGnfFromUsd(grand, lang)}
+            {copy.about} {formatGnf(grand, lang)}
           </p>
         </div>
         <button
@@ -172,7 +172,7 @@ function DevisPage() {
           {armed ? copy.confirmClear : copy.clear}
         </button>
       </div>
-      {grand < MIN_ORDER_USD ? <p className="mt-3 text-sm text-primary">{copy.underMin}</p> : null}
+      {grand < MIN_ORDER_GNF ? <p className="mt-3 text-sm text-primary">{copy.underMin}</p> : null}
       <p className="mt-2 text-sm text-muted">{copy.mixNote}</p>
 
       <form

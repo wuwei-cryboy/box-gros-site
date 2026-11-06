@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { categoryById, t, unitUsd, type Product } from "@/data/catalog";
+import { categoryById, t, unitGnf, type Product } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
-import { formatUsd } from "@/lib/money";
+import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
   const line = useQuote((state) => state.lines.find((item) => item.slug === product.slug));
   const add = useQuote((state) => state.add);
   const category = categoryById(product.category);
-  const price = unitUsd(product, product.moq);
+  const price = unitGnf(product, product.moq);
   const row = layout === "row";
 
   return (
@@ -46,7 +46,7 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
         <p className="mt-1 text-sm text-muted">{t(lang, product.blurb)}</p>
         <p className="mt-3 font-display text-2xl tabular-nums text-primary">
           <span className="mr-2 text-sm text-muted">{copy.from}</span>
-          {formatUsd(price, lang)}
+          {formatGnf(price, lang)}
         </p>
         <div className="mt-auto flex items-end justify-between gap-3 pt-4">
           <p className="text-xs text-muted tabular-nums">
