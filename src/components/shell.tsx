@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ClipboardList } from "lucide-react";
+import { ClipboardList, Wifi, WifiOff } from "lucide-react";
 import { SHOWROOM, t, unitGnf } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
@@ -9,6 +9,7 @@ import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { getProduct } from "@/data/catalog";
+import { getDataSaver, setDataSaver } from "@/lib/network";
 
 const homeSearch = { cat: "tous" as const, q: "", vue: "grille" as const };
 
@@ -20,11 +21,29 @@ export function Shell({ children }: { children: ReactNode }) {
   const lines = useQuote((state) => state.lines);
   const path = useRouterState({ select: (state) => state.location.pathname });
   const showDock = ready && lines.length > 0 && path !== "/devis";
+  const [dataSaver, setDataSaverState] = useState(getDataSaver());
 
   useEffect(() => {
     document.documentElement.lang = lang === "zh" ? "zh-Hans" : "fr";
-    document.title = lang === "zh" ? "Kaloum Gros — 科纳克里批发" : "Kaloum Gros — Grossiste à Conakry";
+    document.title = lang === "zh" ? "Box Gros — 科纳克里批发" : "Box Gros — Grossiste à Conakry";
   }, [lang]);
+
+  // 监听跨标签同步
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'box-gros:data-saver') {
+        setDataSaverState(e.newValue === '1');
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  const toggleDataSaver = () => {
+    const next = !dataSaver;
+    setDataSaverState(next);
+    setDataSaver(next);
+  };
 
   const total = lines.reduce((sum, line) => {
     const product = getProduct(line.slug);
@@ -59,6 +78,20 @@ export function Shell({ children }: { children: ReactNode }) {
                 中文
               </button>
             </div>
+            {/* 省流模式开关 */}
+            <button
+              type="button"
+              onClick={toggleDataSaver}
+              className={cn(
+                "inline-flex h-11 items-center gap-1.5 px-2 text-xs",
+                dataSaver ? "text-primary" : "text-muted hover:text-fg"
+              )}
+              aria-label={dataSaver ? copy.dataSaverOn : copy.dataSaverOff}
+              title={dataSaver ? copy.dataSaverOn : copy.dataSaverOff}
+            >
+              {dataSaver ? <WifiOff className="size-4" /> : <Wifi className="size-4" />}
+              <span className="hidden sm:inline">{dataSaver ? copy.dataSaverOn : copy.dataSaverOff}</span>
+            </button>
             <Link
               to="/devis"
               className="inline-flex h-11 items-center gap-2 px-2 text-sm"
