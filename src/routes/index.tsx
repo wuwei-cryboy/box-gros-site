@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import React from "react";
 import { categories, products, t } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang } from "@/lib/hydrate";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
 import { CatalogBrowser, type CatFilter, type Vue } from "@/components/catalog-browser";
+import { prefetchProductList } from "@/lib/query";
 
 const CATS = ["tous", "telephones", "montres", "lunettes", "parfums"] as const;
 
@@ -35,6 +37,11 @@ function Home() {
     setSearch({ cat });
     document.getElementById("catalogue")?.scrollIntoView({ block: "start" });
   }
+
+  // 预取全量产品列表
+  React.useEffect(() => {
+    prefetchProductList();
+  }, []);
 
   const stats = [
     { value: copy.statMoqValue, label: copy.statMoqLabel },

@@ -4,6 +4,7 @@ import { ui } from "@/data/copy";
 import { useHydratedLang } from "@/lib/hydrate";
 import { cn } from "@/lib/cn";
 import { ProductCard } from "@/components/product-card";
+import { prefetchProductDetail } from "@/lib/query";
 
 export type CatFilter = "tous" | CategoryId;
 export type Vue = "grille" | "liste";
@@ -109,7 +110,12 @@ export function CatalogBrowser({
           )}
         >
           {visible.map((product) => (
-            <ProductCard key={product.slug} product={product} layout={vue === "liste" ? "row" : "tile"} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              layout={vue === "liste" ? "row" : "tile"}
+              onMouseEnter={() => prefetchProductDetail(product.slug)}
+            />
           ))}
         </div>
       )}

@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
 import { CatalogPhoto } from "@/components/catalog-photo";
 
-export function ProductCard({ product, layout }: { product: Product; layout: "tile" | "row" }) {
+export function ProductCard({ product, layout, onMouseEnter }: { product: Product; layout: "tile" | "row"; onMouseEnter?: () => void }) {
   const lang = useHydratedLang();
   const copy = ui[lang];
   const ready = useStoresReady();
@@ -24,6 +24,7 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
         "border border-line bg-surface",
         row ? "flex gap-3 p-3" : "flex flex-col",
       )}
+      onMouseEnter={onMouseEnter}
     >
       <Link
         to="/produit/$slug"

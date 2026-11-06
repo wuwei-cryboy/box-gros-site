@@ -7,6 +7,7 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { nitro } from "nitro/vite";
 import { VitePWA } from "vite-plugin-pwa";
+import { imagetools } from "vite-imagetools";
 // ponytail: dev-only visual-edit bridge; dynamic import so prod builds (without the dep) still load.
 let visualEditFn: ((o: { allowedOrigins: string[] }) => Plugin) | undefined;
 try {
@@ -221,49 +222,49 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           VitePWA({
-            registerType: 'autoUpdate',
-            includeAssets: ['favicon.svg', 'catalog/hero.jpg'],
+            registerType: "autoUpdate",
+            includeAssets: ["favicon.svg", "catalog/hero.jpg"],
             manifest: {
-              name: 'Box Gros',
-              short_name: 'Box Gros',
-              description: 'Grossiste à Conakry : téléphones, montres, lunettes et parfums. Prix carton, seuil clair, livraison en Guinée.',
-              theme_color: '#f3eee6',
-              background_color: '#f3eee6',
-              display: 'standalone',
-              scope: '/',
-              start_url: '/',
+              name: "Box Gros",
+              short_name: "Box Gros",
+              description: "Grossiste à Conakry : téléphones, montres, lunettes et parfums. Prix carton, seuil clair, livraison en Guinée.",
+              theme_color: "#f3eee6",
+              background_color: "#f3eee6",
+              display: "standalone",
+              scope: "/",
+              start_url: "/",
               icons: [
-                { src: '/__grok/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
-                { src: '/__grok/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+                { src: "/__grok/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any maskable" },
+                { src: "/__grok/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
               ],
             },
             workbox: {
               // 预缓存：HTML、CSS、JS、关键图片
-              globPatterns: ['**/*.{html,js,css,svg,png,jpg,webp,woff2}'],
+              globPatterns: ["**/*.{html,js,css,svg,png,jpg,webp,woff2}"],
               // 运行时缓存策略
               runtimeCaching: [
                 {
                   // 产品详情页 API / 页面
                   urlPattern: /^https?.*\/produit\/.*/,
-                  handler: 'StaleWhileRevalidate',
-                  options: { cacheName: 'produit-pages', expiration: { maxEntries: 50, maxAgeSeconds: 86400 } },
+                  handler: "StaleWhileRevalidate",
+                  options: { cacheName: "produit-pages", expiration: { maxEntries: 50, maxAgeSeconds: 86400 } },
                 },
                 {
                   // 图片资源
                   urlPattern: /^https?.*\/catalog\/.*\.(png|jpg|jpeg|webp|svg)$/,
-                  handler: 'CacheFirst',
-                  options: { cacheName: 'catalog-images', expiration: { maxEntries: 200, maxAgeSeconds: 604800 } },
+                  handler: "CacheFirst",
+                  options: { cacheName: "catalog-images", expiration: { maxEntries: 200, maxAgeSeconds: 604800 } },
                 },
                 {
                   // Google Fonts
                   urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
-                  handler: 'StaleWhileRevalidate',
-                  options: { cacheName: 'google-fonts-styles', expiration: { maxEntries: 10, maxAgeSeconds: 604800 } },
+                  handler: "StaleWhileRevalidate",
+                  options: { cacheName: "google-fonts-styles", expiration: { maxEntries: 10, maxAgeSeconds: 604800 } },
                 },
                 {
                   urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/,
-                  handler: 'CacheFirst',
-                  options: { cacheName: 'google-fonts-webfonts', expiration: { maxEntries: 30, maxAgeSeconds: 31536000 } },
+                  handler: "CacheFirst",
+                  options: { cacheName: "google-fonts-webfonts", expiration: { maxEntries: 30, maxAgeSeconds: 31536000 } },
                 },
               ],
               // 不缓存 HTML（始终网络优先，避免部署后用户看旧版）
@@ -273,7 +274,12 @@ export default defineConfig(({ command, isPreview }) => ({
         ]
       : []),
     // dsh-visual-edit dev bridge; dev-mode only, so production builds are untouched.
-    ...(command === "build" || isPreview ? [] : visualEditFn ? [visualEditFn({ allowedOrigins: ["http://127.0.0.1:43129"] }), visualEditSsrPlugin()] : []),
+    ...(command === "build" || isPreview
+      ? []
+      : visualEditFn
+        ? [visualEditFn({ allowedOrigins: ["http://127.0.0.1:43129"] }), visualEditSsrPlugin()]
+        : []),
+    // Nitro (生产构建)
     ...(command === "build" || isPreview
       ? [
           nitro({
@@ -282,6 +288,20 @@ export default defineConfig(({ command, isPreview }) => ({
           }),
         ]
       : []),
+    // 图片优化：LQIP + WebP/AVIF + 响应式尺寸
+    imagetools({
+      defaultDirectives: (url) => {
+        if (url.pathname.startsWith("/catalog/")) {
+          return new URLSearchParams({
+            format: "avif;webp;jpg",
+            as: "picture",
+            w: "400;800;1200",
+            lqip: "true",
+          });
+        }
+        return new URLSearchParams({ format: "avif;webp", lqip: "true" });
+      },
+    }),
     viteReact(),
   ],
 }));
