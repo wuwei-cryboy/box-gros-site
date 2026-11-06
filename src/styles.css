@@ -66,3 +66,61 @@
     scroll-behavior: auto;
   }
 }
+
+/* ===== 弱网/省流模式：动画降级 ===== */
+.weak-network *,
+.weak-network *::before,
+.weak-network *::after,
+.data-saver *,
+.data-saver *::before,
+.data-saver *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  transform: none !important;
+}
+
+/* 保留的「功能性」动画：骨架屏脉冲、加载转圈、Toast 进出 */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Toast 进出动画 */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+.animate-slide-in { animation: slide-in 0.2s ease-out; }
+.animate-slide-out { animation: slide-out 0.15s ease-in; }
+
+/* ===== 离线横幅 ===== */
+.offline-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: var(--color-muted);
+  color: var(--color-surface);
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
