@@ -7,7 +7,6 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { nitro } from "nitro/vite";
 import { VitePWA } from "vite-plugin-pwa";
-import { imagetools } from "vite-imagetools";
 // ponytail: dev-only visual-edit bridge; dynamic import so prod builds (without the dep) still load.
 let visualEditFn: ((o: { allowedOrigins: string[] }) => Plugin) | undefined;
 try {
@@ -288,20 +287,6 @@ export default defineConfig(({ command, isPreview }) => ({
           }),
         ]
       : []),
-    // 图片优化：LQIP + WebP/AVIF + 响应式尺寸
-    imagetools({
-      defaultDirectives: (url) => {
-        if (url.pathname.startsWith("/catalog/")) {
-          return new URLSearchParams({
-            format: "avif;webp;jpg",
-            as: "picture",
-            w: "400;800;1200",
-            lqip: "true",
-          });
-        }
-        return new URLSearchParams({ format: "avif;webp", lqip: "true" });
-      },
-    }),
     viteReact(),
   ],
 }));
