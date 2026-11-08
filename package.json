@@ -72,6 +72,7 @@
     "react-hook-form": "^7.54.0",
     "react-resizable-panels": "^4.6.5",
     "recharts": "^2.13.0",
+    "sharp": "^0.35.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.3.0",
@@ -98,7 +99,6 @@
     "globals": "^15.15.0",
     "playwright": "^1.62.0",
     "prettier": "^3.4.0",
-    "sharp": "^0.35.5",
     "typescript-eslint": "^8.56.1",
     "vite-imagetools": "^12.0.1"
   }
