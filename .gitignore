@@ -8,6 +8,10 @@ build/
 .vercel/
 .npm-cache/
 
+# build-time generated thumbnails (see scripts/generate-thumbnails.mjs)
+public/catalog/**/*-360.webp
+public/catalog/**/*-360.jpg
+
 # local data tools
 noop.mjs
 scripts/extract-prices.mjs
