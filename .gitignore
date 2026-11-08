@@ -12,6 +12,9 @@ build/
 public/catalog/**/*-360.webp
 public/catalog/**/*-360.jpg
 
+# build-time generated PWA icons (see scripts/generate-app-icons.mjs)
+public/icons/
+
 # local data tools
 noop.mjs
 scripts/extract-prices.mjs

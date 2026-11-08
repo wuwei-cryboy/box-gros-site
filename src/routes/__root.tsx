@@ -19,16 +19,21 @@ const DshVisualEditInspector = () =>
   ) : null;
 
 // Service Worker 注册（仅生产 + FEATURE_FLAGS.SW 开启）
+// 注意：并发 hydration 可能在 window load 之后才跑完 useEffect，
+// 那时再监听 load 永远等不到，SW 就一直注册不上（安装提示也出不来）。
+// 所以 load 已触发就直接注册，否则等 load 再注册。
 function registerSW() {
   if (typeof window === 'undefined') return;
   if (!FEATURE_FLAGS.SW) return;
   if (!('serviceWorker' in navigator)) return;
 
-  window.addEventListener('load', () => {
+  const register = () => {
     navigator.serviceWorker.register('/sw.js').catch(() => {
       // 静默失败，不影响主流程
     });
-  });
+  };
+  if (document.readyState === 'complete') register();
+  else window.addEventListener('load', register);
 }
 
 // 离线横幅组件
@@ -70,8 +75,8 @@ export const Route = createRootRoute({
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: "/__grok/manifest.webmanifest" },
-      { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/icons/icon-180.png" },
     ],
   }),
   component: () => {
@@ -85,6 +90,19 @@ export const Route = createRootRoute({
       <html lang="fr" suppressHydrationWarning>
         <head>
           <HeadContent />
+          {/*
+            尽早接住 beforeinstallprompt：Chrome 可能在 React hydration 完成前就
+            发出安装事件，那时 InstallAppButton 还没挂上监听，事件就丢了。
+            这段内联脚本在解析 HTML 时就执行，先把事件存在 window 上，
+            组件挂载后再取用；同时 preventDefault 拦下浏览器自己的迷你安装条，
+            改由站内按钮唤起安装。
+          */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                "window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__boxgrosInstallPrompt=e;});",
+            }}
+          />
         </head>
         <body>
           <OfflineBanner />
