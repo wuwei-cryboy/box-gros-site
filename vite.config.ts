@@ -239,7 +239,9 @@ export default defineConfig(({ command, isPreview }) => ({
             },
             workbox: {
               // 预缓存：HTML、CSS、JS、关键图片
-              globPatterns: ["**/*.{html,js,css,svg,png,jpg,webp,woff2}"],
+              // 只预缓存 App Shell、字体和 hero 图；商品图不预缓存，
+              // 走下面的 runtimeCaching（CacheFirst），避免弱网首访就下载全部 ~5MB 商品图
+              globPatterns: ["**/*.{html,js,css,woff2}", "favicon.svg", "catalog/hero.jpg"],
               // 运行时缓存策略
               runtimeCaching: [
                 {
@@ -253,17 +255,6 @@ export default defineConfig(({ command, isPreview }) => ({
                   urlPattern: /^https?.*\/catalog\/.*\.(png|jpg|jpeg|webp|svg)$/,
                   handler: "CacheFirst",
                   options: { cacheName: "catalog-images", expiration: { maxEntries: 200, maxAgeSeconds: 604800 } },
-                },
-                {
-                  // Google Fonts
-                  urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
-                  handler: "StaleWhileRevalidate",
-                  options: { cacheName: "google-fonts-styles", expiration: { maxEntries: 10, maxAgeSeconds: 604800 } },
-                },
-                {
-                  urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/,
-                  handler: "CacheFirst",
-                  options: { cacheName: "google-fonts-webfonts", expiration: { maxEntries: 30, maxAgeSeconds: 31536000 } },
                 },
               ],
               // 不缓存 HTML（始终网络优先，避免部署后用户看旧版）

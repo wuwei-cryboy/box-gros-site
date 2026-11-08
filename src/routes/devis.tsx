@@ -8,6 +8,8 @@ import { formatGnf, MIN_ORDER_GNF } from "@/lib/money";
 import { buildQuoteMessage, waHref } from "@/lib/quote-message";
 import { useQuote } from "@/lib/quote-store";
 import { Button } from "@/components/ui/button";
+import { QuoteFormSkeleton } from "@/components/skeletons";
+import { srcSetFor } from "@/lib/img";
 import { useConfirmClear } from "@/components/shell";
 import { enqueueSubmission, flushQueue, initOfflineQueue, getQueueLength } from "@/lib/offline-queue";
 
@@ -97,7 +99,11 @@ function DevisPage() {
   }
 
   if (!ready) {
-    return <main className="mx-auto max-w-3xl px-4 py-10" />;
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <QuoteFormSkeleton />
+      </main>
+    );
   }
 
   if (resolved.length === 0) {
@@ -119,10 +125,18 @@ function DevisPage() {
       <h1 className="font-display text-4xl">{copy.quoteTitle}</h1>
       <p className="mt-3 text-muted">{copy.quoteLead}</p>
 
-      <ul className="mt-8 grid gap-3">
+      <ul className="mt-8 grid gap-4">
         {resolved.map((line) => (
-          <li key={line.slug} className="grid grid-cols-[4.5rem_1fr] gap-3 border border-line bg-surface p-3">
-            <img src={line.product.image} alt="" className="aspect-square w-full object-cover" />
+          <li key={line.slug} className="grid grid-cols-[4.5rem_1fr] gap-3 overflow-hidden rounded-2xl border border-line bg-surface p-3 shadow-card">
+            <img
+              src={line.product.image}
+              srcSet={srcSetFor(line.product.image)}
+              sizes="72px"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="aspect-square w-full rounded-xl object-cover"
+            />
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -137,7 +151,7 @@ function DevisPage() {
                 {formatGnf(line.unit, lang)} {copy.perPiece}
               </p>
               <div className="mt-3 flex items-center justify-between gap-3">
-                <div className="flex items-center border border-line">
+                <div className="flex items-center overflow-hidden rounded-full border border-line">
                   <button
                     type="button"
                     className="inline-flex size-11 items-center justify-center"
@@ -212,7 +226,7 @@ function DevisPage() {
             value={boutique}
             onChange={(event) => setBoutique(event.target.value)}
             required
-            className="h-11 border border-line bg-surface px-3 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="h-11 rounded-xl border border-line bg-surface px-3 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           />
         </label>
         <label className="grid gap-1 text-sm">
@@ -220,7 +234,7 @@ function DevisPage() {
           <select
             value={cityId}
             onChange={(event) => setCityId(event.target.value)}
-            className="h-11 border border-line bg-surface px-3 text-base outline-none"
+            className="h-11 rounded-xl border border-line bg-surface px-3 text-base outline-none"
           >
             {cities.map((city) => (
               <option key={city.id} value={city.id}>
@@ -237,7 +251,7 @@ function DevisPage() {
             inputMode="tel"
             autoComplete="tel"
             required
-            className="h-11 border border-line bg-surface px-3 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="h-11 rounded-xl border border-line bg-surface px-3 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           />
         </label>
         <label className="grid gap-1 text-sm">
@@ -247,7 +261,7 @@ function DevisPage() {
             onChange={(event) => setNote(event.target.value)}
             placeholder={copy.notePlaceholder}
             rows={3}
-            className="border border-line bg-surface px-3 py-2 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="rounded-xl border border-line bg-surface px-3 py-2 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           />
         </label>
         {error ? <p className="text-sm text-primary">{error}</p> : null}
@@ -258,7 +272,7 @@ function DevisPage() {
         <div className="mt-6">
           <p className="text-sm">{copy.preview}</p>
           {stale ? <p className="mt-2 text-sm text-primary">{copy.stale}</p> : null}
-          <textarea readOnly value={message} rows={10} className="mt-2 w-full border border-line bg-surface p-3 text-sm" />
+          <textarea readOnly value={message} rows={10} className="mt-2 w-full rounded-xl border border-line bg-surface p-3 text-sm" />
           <div className="mt-3 flex flex-wrap gap-3">
             <Button asChild>
               <a href={waHref(message)} target="_blank" rel="noreferrer">

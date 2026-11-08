@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import React from "react";
 import { categories, products, t } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang } from "@/lib/hydrate";
 import { cn } from "@/lib/cn";
+import { srcSetFor } from "@/lib/img";
 import { Button } from "@/components/ui/button";
 import { CatalogBrowser, type CatFilter, type Vue } from "@/components/catalog-browser";
-import { prefetchProductList } from "@/lib/query";
 
 const CATS = ["tous", "telephones", "montres", "lunettes", "parfums"] as const;
 
@@ -30,6 +29,7 @@ function Home() {
     void navigate({
       search: { ...search, ...next },
       resetScroll: false,
+      replace: true,
     });
   }
 
@@ -37,11 +37,6 @@ function Home() {
     setSearch({ cat });
     document.getElementById("catalogue")?.scrollIntoView({ block: "start" });
   }
-
-  // 预取全量产品列表
-  React.useEffect(() => {
-    prefetchProductList();
-  }, []);
 
   const stats = [
     { value: copy.statMoqValue, label: copy.statMoqLabel },
@@ -85,14 +80,20 @@ function Home() {
           </dl>
         </div>
         <figure>
-          <img src="/catalog/hero.jpg" alt={copy.heroAlt} className="aspect-video w-full object-cover" />
+          <img
+            src="/catalog/hero.jpg"
+            alt={copy.heroAlt}
+            decoding="async"
+            fetchPriority="high"
+            className="aspect-video w-full rounded-2xl object-cover"
+          />
           <figcaption className="mt-2 text-xs text-muted">{copy.thisWeek}</figcaption>
         </figure>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pt-12">
         <h2 className="font-display text-3xl">{copy.familiesTitle}</h2>
-        <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {categories.map((category) => {
             const count = products.filter((product) => product.category === category.id).length;
             return (
@@ -100,18 +101,24 @@ function Home() {
                 key={category.id}
                 type="button"
                 onClick={() => openCategory(category.id)}
-                className="text-left"
+                className="pressable flex flex-col overflow-hidden rounded-2xl bg-surface text-left shadow-card"
               >
                 <img
                   src={category.image}
+                  srcSet={srcSetFor(category.image)}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   alt={t(lang, category.label)}
+                  loading="lazy"
+                  decoding="async"
                   className="aspect-square w-full object-cover"
                 />
-                <p className="mt-2 font-display text-xl">{t(lang, category.label)}</p>
-                <p className="text-sm text-muted">
-                  {count} {copy.countLabel}
-                </p>
-                <p className="text-sm text-muted">{t(lang, category.line)}</p>
+                <div className="flex flex-1 flex-col p-4">
+                  <p className="font-display text-xl">{t(lang, category.label)}</p>
+                  <p className="text-sm text-muted">
+                    {count} {copy.countLabel}
+                  </p>
+                  <p className="mt-1 min-h-10 text-sm text-muted line-clamp-2">{t(lang, category.line)}</p>
+                </div>
               </button>
             );
           })}

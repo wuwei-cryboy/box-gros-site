@@ -7,6 +7,8 @@
     "nf3": "0.3.17"
   },
   "scripts": {
+    "predev": "node scripts/generate-thumbnails.mjs",
+    "prebuild": "node scripts/generate-thumbnails.mjs",
     "dev": "node scripts/with-app-env.mjs vite dev --host 0.0.0.0 --port 8080",
     "build": "node scripts/with-app-env.mjs vite build && npm run db:migrate && node scripts/copy-sw.mjs",
     "db:migrate": "node scripts/migrate.mjs",
@@ -22,6 +24,8 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/outfit": "^5.3.0",
     "@hookform/resolvers": "^5.7.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -68,6 +72,7 @@
     "react-hook-form": "^7.54.0",
     "react-resizable-panels": "^4.6.5",
     "recharts": "^2.13.0",
+    "sharp": "^0.35.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.3.0",

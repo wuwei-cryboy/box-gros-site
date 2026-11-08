@@ -4,8 +4,8 @@ import { cn } from "@/lib/cn";
 export function ProductCardSkeleton({ layout = "tile" }: { layout?: "tile" | "row" } = {}) {
   const row = layout === "row";
   return (
-    <article className={cn("border border-line bg-surface animate-pulse", row ? "flex gap-3 p-3" : "flex flex-col")}>
-      <div className={cn("shrink-0 bg-muted", row ? "w-24 aspect-square" : "aspect-video w-full")} />
+    <article className={cn("overflow-hidden rounded-2xl bg-surface shadow-card animate-pulse", row ? "flex gap-3 p-4" : "flex flex-col")}>
+      <div className={cn("shrink-0 bg-muted", row ? "w-24 aspect-square" : "aspect-square w-full")} />
       <div className={cn("flex min-w-0 flex-1 flex-col", row ? "" : "gap-1 p-4")}>
         <div className="h-3 w-1/4 bg-muted rounded" />
         <div className="mt-1 h-5 w-3/4 bg-muted rounded" />

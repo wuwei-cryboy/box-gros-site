@@ -5,11 +5,13 @@ import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
 import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
+import { srcSetFor } from "@/lib/img";
+import { notifyAdded } from "@/lib/add-feedback";
 import { Button } from "@/components/ui/button";
 import { CatalogPhoto } from "@/components/catalog-photo";
 import { useState, useCallback, useRef } from "react";
 
-export function ProductCard({ product, layout, onMouseEnter }: { product: Product; layout: "tile" | "row"; onMouseEnter?: () => void }) {
+export function ProductCard({ product, layout }: { product: Product; layout: "tile" | "row" }) {
   const lang = useHydratedLang();
   const copy = ui[lang];
   const ready = useStoresReady();
@@ -21,27 +23,31 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
   const [adding, setAdding] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleAdd = useCallback(() => {
-    if (adding || !ready) return;
-    setAdding(true);
-    // 乐观 UI：先更新本地状态，再同步到 store
-    if (!line) {
-      add(product.slug, product.moq);
-    } else {
-      add(product.slug, line.qty + product.carton);
-    }
-    // 防抖：300ms 后恢复按钮状态
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => setAdding(false), 300);
-  }, [line, add, product, ready, adding]);
+  const handleAdd = useCallback(
+    (sourceEl: HTMLElement | null) => {
+      if (adding || !ready) return;
+      setAdding(true);
+      // 乐观 UI：先更新本地状态，再同步到 store
+      if (!line) {
+        add(product.slug, product.moq);
+      } else {
+        add(product.slug, line.qty + product.carton);
+      }
+      // 加购反馈：商品图飞向购物车栏 + 轻提示
+      notifyAdded(sourceEl, copy.added);
+      // 防抖：300ms 后恢复按钮状态
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => setAdding(false), 300);
+    },
+    [line, add, product, ready, adding, copy.added],
+  );
 
   return (
     <article
       className={cn(
-        "border border-line bg-surface",
-        row ? "flex gap-3 p-3" : "flex flex-col",
+        "pressable overflow-hidden rounded-2xl bg-surface shadow-card",
+        row ? "flex gap-3 p-4" : "flex flex-col",
       )}
-      onMouseEnter={onMouseEnter}
     >
       <Link
         to="/produit/$slug"
@@ -49,9 +55,17 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
         className={cn("block shrink-0", row ? "w-24" : "")}
       >
         {row ? (
-          <img src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
+          <img
+            src={product.image}
+            srcSet={srcSetFor(product.image)}
+            sizes="96px"
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            className="aspect-square w-full rounded-xl object-cover"
+          />
         ) : (
-          <CatalogPhoto src={product.image} alt={product.name} />
+          <CatalogPhoto src={product.image} alt={product.name} sizes="(max-width: 1024px) 50vw, 400px" />
         )}
       </Link>
       <div className={cn("flex min-w-0 flex-1 flex-col", row ? "" : "gap-1 p-4")}>
@@ -62,7 +76,14 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
           <h3 className="font-display text-xl leading-tight">{product.name}</h3>
         </Link>
         <p className="mt-1 text-sm text-muted">{t(lang, product.blurb)}</p>
-        <p className="mt-3 font-display text-2xl tabular-nums text-primary">
+        <p
+          className={cn(
+            "mt-3 font-display font-semibold tabular-nums text-primary",
+            // 平铺卡片内容区只有约 139px：7 位 GNF 价格用 3xl 会把数字截断，
+            // 所以平铺保持 2xl（只加粗）；行布局够宽，用 3xl 放大
+            row ? "text-3xl" : "text-2xl",
+          )}
+        >
           <span className="mr-2 text-sm text-muted">{copy.from}</span>
           {formatGnf(price, lang)}
         </p>
@@ -74,7 +95,7 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
           <Button
             variant={line ? "outline" : "primary"}
             disabled={!ready || adding}
-            onClick={handleAdd}
+            onClick={(event) => handleAdd(event.currentTarget)}
           >
             {adding ? (
               <span className="flex items-center gap-1">

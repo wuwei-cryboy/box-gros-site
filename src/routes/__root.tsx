@@ -1,4 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/outfit";
+import { Toaster } from "sonner";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Shell } from "@/components/shell";
@@ -30,8 +33,11 @@ function registerSW() {
 
 // 离线横幅组件
 function OfflineBanner() {
-  const [offline, setOffline] = React.useState(!navigator.onLine);
+  // 初始 false 与服务端渲染一致，联网状态只在客户端挂载后读取，
+  // 避免服务端（navigator.onLine 未定义）与客户端渲染不一致导致 hydration 报错
+  const [offline, setOffline] = React.useState(false);
   React.useEffect(() => {
+    setOffline(!navigator.onLine);
     const onOnline = () => setOffline(false);
     const onOffline = () => setOffline(true);
     window.addEventListener('online', onOnline);
@@ -66,12 +72,6 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap",
-      },
     ],
   }),
   component: () => {
@@ -94,6 +94,20 @@ export const Route = createRootRoute({
               <Outlet />
             </Shell>
           </AuthProvider>
+          {/* 加购轻提示：放顶部，避免与底部购物车栏重叠 */}
+          <Toaster
+            position="top-center"
+            duration={1800}
+            toastOptions={{
+              style: {
+                background: "var(--color-surface)",
+                color: "var(--color-fg)",
+                border: "1px solid var(--color-line)",
+                borderRadius: "2px",
+                boxShadow: "0 4px 16px rgba(28, 22, 18, 0.12)",
+              },
+            }}
+          />
           <DshVisualEditInspector />
           <Scripts />
         </body>
