@@ -10,6 +10,7 @@ import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { getProduct } from "@/data/catalog";
 import { getDataSaver, setDataSaver } from "@/lib/network";
+import { InstallAppButton } from "@/components/install-app-button";
 
 const homeSearch = { cat: "tous" as const, q: "", vue: "grille" as const };
 
@@ -92,6 +93,8 @@ export function Shell({ children }: { children: ReactNode }) {
               {dataSaver ? <WifiOff className="size-4" /> : <Wifi className="size-4" />}
               <span className="hidden sm:inline">{dataSaver ? copy.dataSaverOn : copy.dataSaverOff}</span>
             </button>
+            {/* 安装到桌面：安卓唤起系统安装，iPhone 弹出分享菜单三步指引；不支持时不显示 */}
+            <InstallAppButton />
             <Link
               to="/devis"
               id="quote-header-link"
