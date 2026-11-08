@@ -119,11 +119,12 @@ export function CatalogBrowser({
       </div>
 
       {visible.length === 0 ? (
-        <p className="mt-8 text-muted">{copy.emptyCatalog}</p>
+        <p key={cat} className="animate-fade-up mt-8 text-muted">{copy.emptyCatalog}</p>
       ) : (
         <div
+          key={cat}
           className={cn(
-            "mt-6 grid gap-3",
+            "grid-fade mt-6 grid gap-3",
             vue === "grille" ? "grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
           )}
         >

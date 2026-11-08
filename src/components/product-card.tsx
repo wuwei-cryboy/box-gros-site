@@ -6,6 +6,7 @@ import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
 import { srcSetFor } from "@/lib/img";
+import { notifyAdded } from "@/lib/add-feedback";
 import { Button } from "@/components/ui/button";
 import { CatalogPhoto } from "@/components/catalog-photo";
 import { useState, useCallback, useRef } from "react";
@@ -22,24 +23,29 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
   const [adding, setAdding] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleAdd = useCallback(() => {
-    if (adding || !ready) return;
-    setAdding(true);
-    // 乐观 UI：先更新本地状态，再同步到 store
-    if (!line) {
-      add(product.slug, product.moq);
-    } else {
-      add(product.slug, line.qty + product.carton);
-    }
-    // 防抖：300ms 后恢复按钮状态
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => setAdding(false), 300);
-  }, [line, add, product, ready, adding]);
+  const handleAdd = useCallback(
+    (sourceEl: HTMLElement | null) => {
+      if (adding || !ready) return;
+      setAdding(true);
+      // 乐观 UI：先更新本地状态，再同步到 store
+      if (!line) {
+        add(product.slug, product.moq);
+      } else {
+        add(product.slug, line.qty + product.carton);
+      }
+      // 加购反馈：商品图飞向购物车栏 + 轻提示
+      notifyAdded(sourceEl, copy.added);
+      // 防抖：300ms 后恢复按钮状态
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => setAdding(false), 300);
+    },
+    [line, add, product, ready, adding, copy.added],
+  );
 
   return (
     <article
       className={cn(
-        "border border-line bg-surface",
+        "pressable border border-line bg-surface",
         row ? "flex gap-3 p-3" : "flex flex-col",
       )}
     >
@@ -82,7 +88,7 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
           <Button
             variant={line ? "outline" : "primary"}
             disabled={!ready || adding}
-            onClick={handleAdd}
+            onClick={(event) => handleAdd(event.currentTarget)}
           >
             {adding ? (
               <span className="flex items-center gap-1">

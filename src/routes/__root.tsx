@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import "@fontsource-variable/fraunces";
 import "@fontsource-variable/outfit";
+import { Toaster } from "sonner";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Shell } from "@/components/shell";
@@ -90,6 +91,20 @@ export const Route = createRootRoute({
               <Outlet />
             </Shell>
           </AuthProvider>
+          {/* 加购轻提示：放顶部，避免与底部购物车栏重叠 */}
+          <Toaster
+            position="top-center"
+            duration={1800}
+            toastOptions={{
+              style: {
+                background: "var(--color-surface)",
+                color: "var(--color-fg)",
+                border: "1px solid var(--color-line)",
+                borderRadius: "2px",
+                boxShadow: "0 4px 16px rgba(28, 22, 18, 0.12)",
+              },
+            }}
+          />
           <DshVisualEditInspector />
           <Scripts />
         </body>

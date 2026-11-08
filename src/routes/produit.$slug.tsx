@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { CatalogPhoto } from "@/components/catalog-photo";
 import { ProductCard } from "@/components/product-card";
 import { ProductGallery } from "@/components/product-gallery";
+import { notifyAdded } from "@/lib/add-feedback";
 
 export const Route = createFileRoute("/produit/$slug")({
   head: ({ params }) => {
@@ -148,9 +149,10 @@ function ProductPage() {
             </div>
             <Button
               disabled={!ready}
-              onClick={() => {
+              onClick={(event) => {
                 add(product.slug, qty);
                 setAdded(true);
+                notifyAdded(event.currentTarget, copy.added);
               }}
             >
               {added ? copy.added : copy.addToQuote}

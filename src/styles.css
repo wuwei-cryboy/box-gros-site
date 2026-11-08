@@ -91,11 +91,11 @@ input, select, textarea {
    primary on bg (#f3eee6) = 4.8:1 (AA)
    fg (#1c1612) on bg = 12.8:1 (AAA) */
 
-/* 触控反馈：按下态缩放 */
+/* 触控反馈：按下态缩放（与 .pressable 统一为 0.97 / 150ms） */
 button:not(:disabled):active,
 [role="button"]:not(:disabled):active {
-  transform: scale(0.98);
-  transition: transform 0.05s ease-out;
+  transform: scale(0.97);
+  transition: transform 150ms ease-out;
 }
 
 /* 禁用态明确区分 */
@@ -158,6 +158,79 @@ textarea:disabled {
 
 .animate-slide-in { animation: slide-in 0.2s ease-out; }
 .animate-slide-out { animation: slide-out 0.15s ease-in; }
+
+/* ===== P1 动效：减少动态偏好 ===== */
+/* 只针对本次新增的动效类；骨架屏脉冲、加载转圈等功能性动画保持原样 */
+@media (prefers-reduced-motion: reduce) {
+  .dock-pad,
+  .pressable,
+  .gallery-track,
+  .viewer-media {
+    transition: none !important;
+  }
+  .grid-fade > * {
+    animation: none !important;
+  }
+}
+
+/* P1-4 按压反馈：共享工具类，供非按钮的可点元素（商品卡片、链接）使用；
+   按钮已有全局 :active 规则（见“触控反馈”一节），两者统一为 scale(0.97) / 150ms */
+.pressable {
+  transition: transform 150ms ease-out;
+}
+.pressable:active {
+  transform: scale(0.97);
+}
+
+/* P1-3 商品画廊：滑动轨道只过渡 transform */
+.gallery-track {
+  transition: transform 200ms ease-out;
+}
+
+/* P1-6 图片查看器：缩放/平移只过渡 transform（手势进行中由内联样式关闭过渡） */
+.viewer-media {
+  transition: transform 150ms ease-out;
+}
+
+/* P1-5 分类切换：网格淡入 + 轻微 stagger（每项 200ms，依次延迟 15ms）。
+   用 backwards 填充：动画结束后不保留 transform，避免覆盖卡片的按压缩放 */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 200ms ease-out backwards;
+}
+.grid-fade > * {
+  animation: fade-up 200ms ease-out backwards;
+}
+.grid-fade > *:nth-child(2) {
+  animation-delay: 15ms;
+}
+.grid-fade > *:nth-child(3) {
+  animation-delay: 30ms;
+}
+.grid-fade > *:nth-child(4) {
+  animation-delay: 45ms;
+}
+.grid-fade > *:nth-child(5) {
+  animation-delay: 60ms;
+}
+.grid-fade > *:nth-child(6) {
+  animation-delay: 75ms;
+}
+.grid-fade > *:nth-child(7) {
+  animation-delay: 90ms;
+}
+.grid-fade > *:nth-child(8) {
+  animation-delay: 105ms;
+}
 
 /* ===== 离线横幅 ===== */
 .offline-banner {
