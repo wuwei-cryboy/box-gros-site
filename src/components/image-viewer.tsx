@@ -190,7 +190,7 @@ export function ImageViewer({ images, index, onIndexChange, open, onOpenChange, 
             <>
               <span
                 aria-hidden="true"
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-2 py-0.5 text-xs tabular-nums text-white"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-2 py-0.5 text-xs tabular-nums text-white"
               >
                 {index + 1} / {images.length}
               </span>
@@ -198,7 +198,7 @@ export function ImageViewer({ images, index, onIndexChange, open, onOpenChange, 
                 type="button"
                 onClick={() => go(-1)}
                 aria-label="上一张"
-                className="absolute top-1/2 left-2 flex size-11 -translate-y-1/2 items-center justify-center bg-black/50 text-white"
+                className="absolute top-1/2 left-2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white"
               >
                 <ChevronLeft className="size-5" />
               </button>
@@ -206,7 +206,7 @@ export function ImageViewer({ images, index, onIndexChange, open, onOpenChange, 
                 type="button"
                 onClick={() => go(1)}
                 aria-label="下一张"
-                className="absolute top-1/2 right-2 flex size-11 -translate-y-1/2 items-center justify-center bg-black/50 text-white"
+                className="absolute top-1/2 right-2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white"
               >
                 <ChevronRight className="size-5" />
               </button>
@@ -217,7 +217,7 @@ export function ImageViewer({ images, index, onIndexChange, open, onOpenChange, 
               type="button"
               aria-label="关闭"
               className={cn(
-                "absolute top-4 right-4 flex size-11 items-center justify-center",
+                "absolute top-4 right-4 flex size-11 items-center justify-center rounded-full",
                 "bg-black/50 text-white",
               )}
             >

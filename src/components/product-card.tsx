@@ -45,8 +45,8 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
   return (
     <article
       className={cn(
-        "pressable border border-line bg-surface",
-        row ? "flex gap-3 p-3" : "flex flex-col",
+        "pressable overflow-hidden rounded-2xl bg-surface shadow-card",
+        row ? "flex gap-3 p-4" : "flex flex-col",
       )}
     >
       <Link
@@ -62,7 +62,7 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
             alt={product.name}
             loading="lazy"
             decoding="async"
-            className="aspect-square w-full object-cover"
+            className="aspect-square w-full rounded-xl object-cover"
           />
         ) : (
           <CatalogPhoto src={product.image} alt={product.name} sizes="(max-width: 1024px) 50vw, 400px" />
@@ -76,7 +76,14 @@ export function ProductCard({ product, layout }: { product: Product; layout: "ti
           <h3 className="font-display text-xl leading-tight">{product.name}</h3>
         </Link>
         <p className="mt-1 text-sm text-muted">{t(lang, product.blurb)}</p>
-        <p className="mt-3 font-display text-2xl tabular-nums text-primary">
+        <p
+          className={cn(
+            "mt-3 font-display font-semibold tabular-nums text-primary",
+            // 平铺卡片内容区只有约 139px：7 位 GNF 价格用 3xl 会把数字截断，
+            // 所以平铺保持 2xl（只加粗）；行布局够宽，用 3xl 放大
+            row ? "text-3xl" : "text-2xl",
+          )}
+        >
           <span className="mr-2 text-sm text-muted">{copy.from}</span>
           {formatGnf(price, lang)}
         </p>

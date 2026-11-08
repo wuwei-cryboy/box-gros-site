@@ -104,7 +104,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
     return (
       <>
         <div
-          className={cn("cursor-zoom-in", className)}
+          className={cn("cursor-zoom-in overflow-hidden rounded-2xl", className)}
           onClick={() => setViewerOpen(true)}
           role="button"
           aria-label={`${alt}：点击放大查看`}
@@ -135,7 +135,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
   return (
     <div className={cn("flex flex-col gap-2 overflow-hidden", className)}>
       <div
-        className="relative cursor-zoom-in overflow-hidden [touch-action:pan-y]"
+        className="relative cursor-zoom-in overflow-hidden rounded-2xl [touch-action:pan-y]"
         onClick={() => {
           if (!suppressClickRef.current) setViewerOpen(true);
         }}
@@ -172,7 +172,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
         </div>
         <span
           aria-hidden="true"
-          className="absolute right-2 bottom-2 bg-fg/70 px-2 py-0.5 text-xs tabular-nums text-bg"
+          className="absolute right-2 bottom-2 rounded-full bg-fg/70 px-2 py-0.5 text-xs tabular-nums text-bg"
         >
           {active + 1} / {images.length}
         </span>
@@ -188,7 +188,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
               data-thumb={index}
               onClick={() => setActive(index)}
               className={cn(
-                "shrink-0 border p-0.5 transition-opacity",
+                "shrink-0 rounded-lg border p-0.5 transition-opacity",
                 index === active ? "border-primary" : "border-line opacity-60 hover:opacity-100",
               )}
               aria-label={`Photo ${index + 1}`}
@@ -200,7 +200,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
                 alt=""
                 loading="lazy"
                 decoding="async"
-                className="size-16 object-cover"
+                className="size-16 rounded-md object-cover"
               />
             </button>
           );

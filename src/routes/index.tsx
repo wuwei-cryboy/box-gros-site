@@ -85,7 +85,7 @@ function Home() {
             alt={copy.heroAlt}
             decoding="async"
             fetchPriority="high"
-            className="aspect-video w-full object-cover"
+            className="aspect-video w-full rounded-2xl object-cover"
           />
           <figcaption className="mt-2 text-xs text-muted">{copy.thisWeek}</figcaption>
         </figure>
@@ -93,7 +93,7 @@ function Home() {
 
       <section className="mx-auto max-w-6xl px-4 pt-12">
         <h2 className="font-display text-3xl">{copy.familiesTitle}</h2>
-        <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {categories.map((category) => {
             const count = products.filter((product) => product.category === category.id).length;
             return (
@@ -110,7 +110,7 @@ function Home() {
                   alt={t(lang, category.label)}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-square w-full object-cover"
+                  className="aspect-square w-full rounded-2xl object-cover"
                 />
                 <p className="mt-2 font-display text-xl">{t(lang, category.label)}</p>
                 <p className="text-sm text-muted">

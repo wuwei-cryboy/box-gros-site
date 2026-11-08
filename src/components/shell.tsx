@@ -100,7 +100,7 @@ export function Shell({ children }: { children: ReactNode }) {
               <ClipboardList className="size-5" />
               <span className="hidden sm:inline">{copy.quote}</span>
               {ready && lines.length > 0 ? (
-                <span className="inline-flex h-5 min-w-5 items-center justify-center bg-primary px-1 text-xs tabular-nums text-primary-fg">
+                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-xs tabular-nums text-primary-fg">
                   {lines.length}
                 </span>
               ) : null}
@@ -131,11 +131,13 @@ export function Shell({ children }: { children: ReactNode }) {
         </div>
       </footer>
       {/* 购物车栏常驻挂载：隐藏时滑出屏幕外，出现/消失都有 300ms 滑入滑出过渡；
-          内容区 padding 变化也同步过渡，避免首次加购时内容突然上跳约 80px */}
+          内容区 padding 变化也同步过渡，避免首次加购时内容突然上跳约 80px。
+          视觉改版：悬浮圆角托盘（左右留边、底部留边、四角圆角 + 柔和阴影），
+          滑入动画与 padding 过渡保持不变 */}
       <div
         aria-hidden={!showDock}
         className={cn(
-          "dock-pad fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur transition-transform duration-300 ease-out",
+          "dock-pad fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-line bg-surface/95 shadow-card backdrop-blur transition-transform duration-300 ease-out",
           showDock ? "translate-y-0" : "pointer-events-none translate-y-full",
         )}
       >
@@ -150,7 +152,7 @@ export function Shell({ children }: { children: ReactNode }) {
             to="/devis"
             id="quote-dock-cta"
             tabIndex={showDock ? undefined : -1}
-            className="pressable inline-flex h-11 items-center bg-primary px-4 text-sm font-medium text-primary-fg"
+            className="pressable inline-flex h-11 items-center rounded-full bg-primary px-4 text-sm font-medium text-primary-fg"
           >
             {copy.seeQuote}
           </Link>

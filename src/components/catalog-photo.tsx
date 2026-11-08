@@ -31,7 +31,7 @@ export function CatalogPhoto({
     );
   }
   return (
-    <div className="relative aspect-square overflow-hidden bg-bg">
+    <div className="relative aspect-square overflow-hidden rounded-2xl bg-bg">
       <img
         src={src}
         srcSet={srcSet}

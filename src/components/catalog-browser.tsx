@@ -67,7 +67,7 @@ export function CatalogBrowser({
     <section id="catalogue" className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <h2 className="font-display text-3xl">{copy.catalogTitle}</h2>
-        <div className="flex h-11 border border-line">
+        <div className="flex h-11 overflow-hidden rounded-full border border-line">
           <button
             type="button"
             className={cn("px-3 text-sm", vue === "grille" ? "bg-fg text-bg" : "text-muted")}
@@ -94,8 +94,8 @@ export function CatalogBrowser({
               type="button"
               onClick={() => onChange({ cat: filter.id })}
               className={cn(
-                "h-11 shrink-0 border-b-2 px-3 text-sm",
-                active ? "border-primary text-fg" : "border-transparent text-muted",
+                "h-11 shrink-0 rounded-full border px-4 text-sm",
+                active ? "border-primary bg-primary text-primary-fg" : "border-line bg-surface text-muted",
               )}
             >
               {filter.label}
@@ -114,7 +114,7 @@ export function CatalogBrowser({
           value={localQ}
           onChange={(event) => handleSearchInput(event.target.value)}
           placeholder={copy.searchPlaceholder}
-          className="h-11 w-full border border-line bg-surface pr-3 pl-10 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="h-11 w-full rounded-full border border-line bg-surface pr-3 pl-10 text-base outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         />
       </div>
 
@@ -124,7 +124,7 @@ export function CatalogBrowser({
         <div
           key={cat}
           className={cn(
-            "grid-fade mt-6 grid gap-3",
+            "grid-fade mt-6 grid gap-4",
             vue === "grille" ? "grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
           )}
         >

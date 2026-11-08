@@ -91,12 +91,12 @@ function ProductPage() {
           <h1 className="mt-2 font-display text-4xl leading-none sm:text-5xl">{product.name}</h1>
           <p className="mt-3 text-muted">{t(lang, product.story)}</p>
           <p className="mt-4 text-sm">{t(lang, product.stockLabel)}</p>
-          <p className="mt-6 font-display text-4xl tabular-nums text-primary">{formatGnf(unit, lang)}</p>
+          <p className="mt-6 font-display text-4xl font-semibold tabular-nums text-primary">{formatGnf(unit, lang)}</p>
           <p className="mt-1 text-sm text-muted tabular-nums">
             {copy.about} {formatGnf(unit, lang)} {copy.perPiece}
           </p>
 
-          <div className="mt-6 border border-line">
+          <div className="mt-6 overflow-hidden rounded-2xl border border-line bg-surface shadow-card">
             <div className="grid grid-cols-2 px-3 py-2 text-xs text-muted">
               <span>{copy.qtyCol}</span>
               <span className="text-right">{copy.priceCol}</span>
@@ -121,7 +121,7 @@ function ProductPage() {
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <div className="flex items-center border border-line bg-surface">
+            <div className="flex items-center overflow-hidden rounded-full border border-line bg-surface">
               <button
                 type="button"
                 className="inline-flex size-11 items-center justify-center"
@@ -178,7 +178,7 @@ function ProductPage() {
       {related.length > 0 ? (
         <section className="mt-12">
           <h2 className="font-display text-2xl">{copy.related}</h2>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {related.map((item) => (
               <ProductCard key={item.slug} product={item} layout="row" />
             ))}
