@@ -81,7 +81,7 @@ function ProductPage() {
         {product.gallery ? (
           <ProductGallery key={slug} src={product.image} gallery={product.gallery} alt={product.name} />
         ) : (
-          <CatalogPhoto src={product.image} alt={product.name} />
+          <CatalogPhoto src={product.image} alt={product.name} eager />
         )}
         <div>
           <p className={cn("text-xs text-muted", lang === "fr" && "tracking-widest uppercase")}>

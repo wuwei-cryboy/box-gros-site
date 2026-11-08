@@ -8,6 +8,8 @@ import { formatGnf, MIN_ORDER_GNF } from "@/lib/money";
 import { buildQuoteMessage, waHref } from "@/lib/quote-message";
 import { useQuote } from "@/lib/quote-store";
 import { Button } from "@/components/ui/button";
+import { QuoteFormSkeleton } from "@/components/skeletons";
+import { srcSetFor } from "@/lib/img";
 import { useConfirmClear } from "@/components/shell";
 import { enqueueSubmission, flushQueue, initOfflineQueue, getQueueLength } from "@/lib/offline-queue";
 
@@ -97,7 +99,11 @@ function DevisPage() {
   }
 
   if (!ready) {
-    return <main className="mx-auto max-w-3xl px-4 py-10" />;
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <QuoteFormSkeleton />
+      </main>
+    );
   }
 
   if (resolved.length === 0) {
@@ -122,7 +128,15 @@ function DevisPage() {
       <ul className="mt-8 grid gap-3">
         {resolved.map((line) => (
           <li key={line.slug} className="grid grid-cols-[4.5rem_1fr] gap-3 border border-line bg-surface p-3">
-            <img src={line.product.image} alt="" className="aspect-square w-full object-cover" />
+            <img
+              src={line.product.image}
+              srcSet={srcSetFor(line.product.image)}
+              sizes="72px"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="aspect-square w-full object-cover"
+            />
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-3">
                 <div>

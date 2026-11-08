@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import React from "react";
 import { categories, products, t } from "@/data/catalog";
 import { ui } from "@/data/copy";
 import { useHydratedLang } from "@/lib/hydrate";
 import { cn } from "@/lib/cn";
+import { srcSetFor } from "@/lib/img";
 import { Button } from "@/components/ui/button";
 import { CatalogBrowser, type CatFilter, type Vue } from "@/components/catalog-browser";
-import { prefetchProductList } from "@/lib/query";
 
 const CATS = ["tous", "telephones", "montres", "lunettes", "parfums"] as const;
 
@@ -30,6 +29,7 @@ function Home() {
     void navigate({
       search: { ...search, ...next },
       resetScroll: false,
+      replace: true,
     });
   }
 
@@ -37,11 +37,6 @@ function Home() {
     setSearch({ cat });
     document.getElementById("catalogue")?.scrollIntoView({ block: "start" });
   }
-
-  // 预取全量产品列表
-  React.useEffect(() => {
-    prefetchProductList();
-  }, []);
 
   const stats = [
     { value: copy.statMoqValue, label: copy.statMoqLabel },
@@ -85,7 +80,13 @@ function Home() {
           </dl>
         </div>
         <figure>
-          <img src="/catalog/hero.jpg" alt={copy.heroAlt} className="aspect-video w-full object-cover" />
+          <img
+            src="/catalog/hero.jpg"
+            alt={copy.heroAlt}
+            decoding="async"
+            fetchPriority="high"
+            className="aspect-video w-full object-cover"
+          />
           <figcaption className="mt-2 text-xs text-muted">{copy.thisWeek}</figcaption>
         </figure>
       </section>
@@ -104,7 +105,11 @@ function Home() {
               >
                 <img
                   src={category.image}
+                  srcSet={srcSetFor(category.image)}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   alt={t(lang, category.label)}
+                  loading="lazy"
+                  decoding="async"
                   className="aspect-square w-full object-cover"
                 />
                 <p className="mt-2 font-display text-xl">{t(lang, category.label)}</p>

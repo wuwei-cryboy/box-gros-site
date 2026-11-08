@@ -5,11 +5,12 @@ import { useHydratedLang, useStoresReady } from "@/lib/hydrate";
 import { formatGnf } from "@/lib/money";
 import { useQuote } from "@/lib/quote-store";
 import { cn } from "@/lib/cn";
+import { srcSetFor } from "@/lib/img";
 import { Button } from "@/components/ui/button";
 import { CatalogPhoto } from "@/components/catalog-photo";
 import { useState, useCallback, useRef } from "react";
 
-export function ProductCard({ product, layout, onMouseEnter }: { product: Product; layout: "tile" | "row"; onMouseEnter?: () => void }) {
+export function ProductCard({ product, layout }: { product: Product; layout: "tile" | "row" }) {
   const lang = useHydratedLang();
   const copy = ui[lang];
   const ready = useStoresReady();
@@ -41,7 +42,6 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
         "border border-line bg-surface",
         row ? "flex gap-3 p-3" : "flex flex-col",
       )}
-      onMouseEnter={onMouseEnter}
     >
       <Link
         to="/produit/$slug"
@@ -49,9 +49,17 @@ export function ProductCard({ product, layout, onMouseEnter }: { product: Produc
         className={cn("block shrink-0", row ? "w-24" : "")}
       >
         {row ? (
-          <img src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
+          <img
+            src={product.image}
+            srcSet={srcSetFor(product.image)}
+            sizes="96px"
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            className="aspect-square w-full object-cover"
+          />
         ) : (
-          <CatalogPhoto src={product.image} alt={product.name} />
+          <CatalogPhoto src={product.image} alt={product.name} sizes="(max-width: 1024px) 50vw, 400px" />
         )}
       </Link>
       <div className={cn("flex min-w-0 flex-1 flex-col", row ? "" : "gap-1 p-4")}>
