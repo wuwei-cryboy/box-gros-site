@@ -101,7 +101,7 @@ function Home() {
                 key={category.id}
                 type="button"
                 onClick={() => openCategory(category.id)}
-                className="text-left"
+                className="pressable flex flex-col overflow-hidden rounded-2xl bg-surface text-left shadow-card"
               >
                 <img
                   src={category.image}
@@ -110,13 +110,15 @@ function Home() {
                   alt={t(lang, category.label)}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-square w-full rounded-2xl object-cover"
+                  className="aspect-square w-full object-cover"
                 />
-                <p className="mt-2 font-display text-xl">{t(lang, category.label)}</p>
-                <p className="text-sm text-muted">
-                  {count} {copy.countLabel}
-                </p>
-                <p className="text-sm text-muted">{t(lang, category.line)}</p>
+                <div className="flex flex-1 flex-col p-4">
+                  <p className="font-display text-xl">{t(lang, category.label)}</p>
+                  <p className="text-sm text-muted">
+                    {count} {copy.countLabel}
+                  </p>
+                  <p className="mt-1 min-h-10 text-sm text-muted line-clamp-2">{t(lang, category.line)}</p>
+                </div>
               </button>
             );
           })}
