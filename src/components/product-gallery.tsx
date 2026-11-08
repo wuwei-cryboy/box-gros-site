@@ -133,7 +133,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
   }
 
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
+    <div className={cn("flex flex-col gap-2 overflow-hidden", className)}>
       <div
         className="relative cursor-zoom-in overflow-hidden [touch-action:pan-y]"
         onClick={() => {
@@ -156,7 +156,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
             const slideSrcSet = srcSetFor(image);
             return (
               <img
-                key={image}
+                key={index}
                 src={image}
                 srcSet={slideSrcSet}
                 sizes={slideSrcSet ? "(max-width: 1024px) 100vw, 50vw" : undefined}
@@ -183,7 +183,7 @@ export function ProductGallery({ src, gallery, alt, className }: { src: string; 
           const thumbSrcSet = srcSetFor(image);
           return (
             <button
-              key={image}
+              key={index}
               type="button"
               data-thumb={index}
               onClick={() => setActive(index)}

@@ -33,8 +33,11 @@ function registerSW() {
 
 // 离线横幅组件
 function OfflineBanner() {
-  const [offline, setOffline] = React.useState(!navigator.onLine);
+  // 初始 false 与服务端渲染一致，联网状态只在客户端挂载后读取，
+  // 避免服务端（navigator.onLine 未定义）与客户端渲染不一致导致 hydration 报错
+  const [offline, setOffline] = React.useState(false);
   React.useEffect(() => {
+    setOffline(!navigator.onLine);
     const onOnline = () => setOffline(false);
     const onOffline = () => setOffline(true);
     window.addEventListener('online', onOnline);

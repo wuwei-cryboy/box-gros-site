@@ -739,7 +739,6 @@ export const products: Product[] = [
     gallery: [
       "/catalog/parfums/02/02-main.webp",
       "/catalog/parfums/02/02-t03.webp",
-      "/catalog/parfums/02/02-t03.webp",
       "/catalog/parfums/02/02-t04.webp",
       "/catalog/parfums/02/02-t05.webp",
       "/catalog/parfums/02/02-t06.webp",
