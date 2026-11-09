@@ -111,7 +111,7 @@ export const products: Product[] = [
       { min: 100, gnf: 2350000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "m17-promax",
@@ -142,7 +142,7 @@ export const products: Product[] = [
       { min: 100, gnf: 2350000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "x200-pro",
@@ -174,7 +174,7 @@ export const products: Product[] = [
       { min: 100, gnf: 2350000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "s26-ultra",
@@ -205,7 +205,7 @@ export const products: Product[] = [
       { min: 100, gnf: 1583000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "amxge",
@@ -237,7 +237,7 @@ export const products: Product[] = [
       { min: 200, gnf: 1979000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "s26-plus-ultra",
@@ -268,7 +268,7 @@ export const products: Product[] = [
       { min: 100, gnf: 1190000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "h25-sport",
@@ -301,7 +301,7 @@ export const products: Product[] = [
       { min: 96, gnf: 413000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "mini-focus",
@@ -335,7 +335,7 @@ export const products: Product[] = [
       { min: 96, gnf: 413000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "t99max-smart",
@@ -369,7 +369,7 @@ export const products: Product[] = [
       { min: 96, gnf: 140000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "plongee-rubis",
@@ -401,7 +401,7 @@ export const products: Product[] = [
       { min: 144, gnf: 413000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "jade-bangle",
@@ -431,7 +431,7 @@ export const products: Product[] = [
       { min: 96, gnf: 140000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "champagne-mech",
@@ -465,7 +465,7 @@ export const products: Product[] = [
       { min: 144, gnf: 413000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "champagne-quartz",
@@ -497,7 +497,7 @@ export const products: Product[] = [
       { min: 96, gnf: 256000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "aviateur-k",
@@ -537,7 +537,7 @@ export const products: Product[] = [
       { min: 360, gnf: 178000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "pc-square",
@@ -564,7 +564,7 @@ export const products: Product[] = [
       { min: 360, gnf: 178000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "large-face",
@@ -597,7 +597,7 @@ export const products: Product[] = [
       { min: 360, gnf: 178000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "polar-sun",
@@ -630,7 +630,7 @@ export const products: Product[] = [
       { min: 360, gnf: 150000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "cat-eye",
@@ -663,7 +663,7 @@ export const products: Product[] = [
       { min: 360, gnf: 228000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "fine-mesh",
@@ -699,7 +699,7 @@ export const products: Product[] = [
       { min: 360, gnf: 238000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "sadoer-sandal",
@@ -728,7 +728,7 @@ export const products: Product[] = [
       { min: 144, gnf: 113000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "retro-paris",
@@ -771,7 +771,7 @@ export const products: Product[] = [
       { min: 360, gnf: 113000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "flower-story",
@@ -801,7 +801,7 @@ export const products: Product[] = [
       { min: 144, gnf: 175000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "mejisoo",
@@ -832,7 +832,7 @@ export const products: Product[] = [
       { min: 144, gnf: 113000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "udclub-sweet",
@@ -864,7 +864,7 @@ export const products: Product[] = [
       { min: 144, gnf: 113000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
   {
     slug: "body-spray",
@@ -895,7 +895,7 @@ export const products: Product[] = [
       { min: 360, gnf: 112000 },
     ],
     stock: "stock",
-    stockLabel: { fr: "En stock · Kaloum", zh: "现货 · 卡卢姆" },
+    stockLabel: { fr: "En stock", zh: "现货" },
   },
 ];
 
