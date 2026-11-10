@@ -173,7 +173,7 @@ const zh: { [K in keyof typeof fr]: string } = {
   perPiece: "/ 件",
   about: "约",
   quoteTitle: "报价单",
-  quoteLead: "核对数量，再生成报文。卡卢姆展厅会回复。",
+  quoteLead: "核对数量，再生成报文。展厅会回复。",
   emptyQuote: "报价单是空的。",
   emptyQuoteCta: "去看价目",
   boutique: "店铺名称",
