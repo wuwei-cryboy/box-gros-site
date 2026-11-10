@@ -57,7 +57,7 @@ export function Shell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-line bg-bg/95 backdrop-blur">
         <div className="h-1 bg-primary" />
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
-          <Link to="/" search={homeSearch}>
+          <Link to="/" search={homeSearch} className="flex h-11 items-center">
             <span className="font-display text-[22px] font-semibold leading-none">BOX GROS</span>
           </Link>
           <div className="flex items-center gap-1">
