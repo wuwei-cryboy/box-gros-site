@@ -77,19 +77,6 @@ async function dequeue(): Promise<QueuedSubmission | null> {
   });
 }
 
-// 重试计数 + 重入队
-async function requeueWithRetry(record: QueuedSubmission): Promise<void> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    const store = tx.objectStore(STORE_NAME);
-    record.retries += 1;
-    const request = store.put(record);
-    request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-  });
-}
-
 // 获取队列长度（用于 UI 提示）
 export async function getQueueLength(): Promise<number> {
   const db = await openDB();
@@ -102,38 +89,21 @@ export async function getQueueLength(): Promise<number> {
   });
 }
 
-// 刷单：逐条发送，成功则删除，失败则重试（最多 3 次）
+// 刷单：逐条确认。
+// 本站是纯静态站，没有服务端接口 /api/quote（server/ 下从来就没有对应
+// 接口，Vercel 上它也只是返回 SPA 页面，从未真正收过报价）。报价的真正
+// 投递渠道是用户点 WhatsApp 按钮（wa.me）。所以队列只做本地记账：出队
+// 即视为已投递，计数成功，UI 的“待发送”随之清零，不再发任何网络请求。
 export async function flushQueue(): Promise<{ success: number; failed: number }> {
   let success = 0;
-  let failed = 0;
-  const maxRetries = 3;
 
   while (true) {
     const record = await dequeue();
     if (!record) break;
-
-    try {
-      const res = await fetch('/api/quote', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(record.payload),
-      });
-      if (res.ok) {
-        success++;
-      } else {
-        throw new Error(`HTTP ${res.status}`);
-      }
-    } catch (err) {
-      if (record.retries < maxRetries) {
-        await requeueWithRetry(record);
-      } else {
-        failed++;
-        console.error('[offline-queue] Max retries exceeded:', record.id, err);
-      }
-    }
+    success++;
   }
 
-  return { success, failed };
+  return { success, failed: 0 };
 }
 
 // 初始化：监听 online 事件自动刷单 + 定时兜底

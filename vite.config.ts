@@ -270,10 +270,22 @@ export default defineConfig(({ command, isPreview }) => ({
         ? [visualEditFn({ allowedOrigins: ["http://127.0.0.1:43129"] }), visualEditSsrPlugin()]
         : []),
     // Nitro (生产构建)
+    // 静态站：preset 用 node-server（输出 .output/server + .output/public），
+    // Cloudflare Pages 直接托管 .output/public，不需要服务端。
+    // 注意：不要在这里加 Nitro 的 prerender 配置——Nitro 3 的预渲染器会用
+    // rolldown 单独再打一份服务端，而平台中间件 server/middleware/grok-pwa.ts
+    // 用了 Vite 专属写法（?raw、virtual:grok-og-identity、?url），rolldown
+    // 打不动（实测报错 Could not load scripts/install-page.html?raw）。
+    // 预渲染改由构建脚本 scripts/prerender-static.mjs 做：起已打好的
+    // .output/server，对 27 条路由（首页 + 报价页 + 25 个商品详情页）逐个
+    // 取 SSR HTML 写进 .output/public。
+    // 不要用 preset "static"（它不认 TanStack Start 的路由处理器，每条
+    // 路径都会 404），也不要用 "vercel"（输出进 .vercel/output，Cloudflare
+    // 侧还得指一个 Vercel 专属目录）。
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: "vercel",
+            preset: "node-server",
             serverDir: "./server",
           }),
         ]
