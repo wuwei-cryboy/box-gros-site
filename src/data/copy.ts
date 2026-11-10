@@ -3,8 +3,7 @@ import type { Lang } from "@/lib/lang-store";
 const fr = {
   eyebrow: "Grossiste · Conakry",
   heroTitle: "Le prix du carton, affiché.",
-  heroLead:
-    "Téléphones, montres, lunettes et parfums pour les boutiques de Guinée. Vous repartez de Kaloum avec un tarif, pas avec une discussion.",
+  heroLead: "Choisissez, ajoutez, envoyez. On s'occupe du reste.",
   heroAlt: "Téléphone, montre, lunettes et parfum posés sur du lin.",
   ctaCatalog: "Voir les prix",
   ctaQuote: "Mon devis",
@@ -12,7 +11,7 @@ const fr = {
   statMoqLabel: "pièces, seuil bas",
   statCityValue: "48 h",
   statCityLabel: "dans Conakry",
-  statMinValue: "4 415 000 GNF",
+  statMinValue: "4,4 M GNF",
   statMinLabel: "commande mixte",
   familiesTitle: "Quatre familles",
   thisWeek: "Au showroom cette semaine",
@@ -110,7 +109,7 @@ const fr = {
 const zh: { [K in keyof typeof fr]: string } = {
   eyebrow: "批发 · 科纳克里",
   heroTitle: "箱价写在明处。",
-  heroLead: "手机、腕表、太阳镜、香水，供给几内亚的店铺。从 Box 带走的是价目，不是一场讨价还价。",
+  heroLead: "选好，加入，发过来。剩下的交给我们。",
   heroAlt: "麻布上的手机、腕表、太阳镜和香水。",
   ctaCatalog: "看批发价",
   ctaQuote: "我的报价单",
@@ -118,7 +117,7 @@ const zh: { [K in keyof typeof fr]: string } = {
   statMoqLabel: "件起，最低门槛",
   statCityValue: "48 小时",
   statCityLabel: "科纳克里市内",
-  statMinValue: "4 415 000 GNF",
+  statMinValue: "4,4 M GNF",
   statMinLabel: "混批最低",
   familiesTitle: "四个品类",
   thisWeek: "本周展厅在售",

@@ -57,9 +57,8 @@ export function Shell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-line bg-bg/95 backdrop-blur">
         <div className="h-1 bg-primary" />
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4">
-          <Link to="/" search={homeSearch} className="flex items-baseline gap-2">
-            <span className="font-display text-xl leading-none">Box</span>
-            <span className={cn("text-xs text-muted", lang === "fr" && "tracking-widest")}>GROS</span>
+          <Link to="/" search={homeSearch}>
+            <span className="font-display text-[22px] font-semibold leading-none">BOX GROS</span>
           </Link>
           <div className="flex items-center gap-1">
             <div className="flex h-11 items-center text-sm">
@@ -115,7 +114,7 @@ export function Shell({ children }: { children: ReactNode }) {
       <footer className="border-t border-line">
         <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-3">
           <div>
-            <p className="font-display text-2xl">Box Gros</p>
+            <p className="font-display text-2xl font-semibold">BOX GROS</p>
             <p className="mt-2 text-sm text-muted">{copy.address}</p>
             <p className="mt-1 text-sm text-muted">{copy.hours}</p>
             <a href={`tel:${SHOWROOM.tel}`} className="mt-3 inline-flex h-11 items-center text-sm">
