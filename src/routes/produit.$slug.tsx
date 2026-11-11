@@ -17,7 +17,7 @@ export const Route = createFileRoute("/produit/$slug")({
   head: ({ params }) => {
     const product = getProduct(params.slug);
     return {
-      meta: [{ title: product ? `${product.name} — Kaloum Gros` : "Kaloum Gros" }],
+      meta: [{ title: product ? `${product.name} — Box Gros` : "Box Gros" }],
     };
   },
   component: ProductPage,

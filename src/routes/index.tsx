@@ -54,26 +54,26 @@ function Home() {
 
   return (
     <main>
-      <section className="mx-auto grid max-w-6xl items-end gap-8 px-4 pt-8 sm:pt-14 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl items-end gap-4 px-4 pt-5 sm:pt-14 lg:grid-cols-2 lg:gap-8">
         <div>
           <p className={cn("flex items-center gap-3 text-xs text-muted", lang === "fr" && "tracking-widest uppercase")}>
             <span className="h-px w-8 bg-primary" />
             {copy.eyebrow}
           </p>
-          <h1 className="mt-4 font-display text-4xl leading-none sm:text-6xl">{copy.heroTitle}</h1>
-          <p className="mt-4 max-w-md text-base text-muted">{copy.heroLead}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button type="button" onClick={() => openCategory("tous")}>
+          <h1 className="mt-3 font-display text-[32px] leading-[1.15] sm:text-6xl">{copy.heroTitle}</h1>
+          <p className="mt-2.5 max-w-md text-base text-muted">{copy.heroLead}</p>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Button type="button" onClick={() => openCategory("tous")} className="w-full sm:w-auto">
               {copy.ctaCatalog}
             </Button>
-            <Button asChild variant="outline">
-              <Link to="/devis">{copy.ctaQuote}</Link>
-            </Button>
+            <Link to="/devis" className="text-center text-sm font-semibold text-primary sm:text-left">
+              {copy.ctaQuote} →
+            </Link>
           </div>
-          <dl className="mt-8 grid grid-cols-3 border-t border-line">
+          <dl className="mt-5 grid grid-cols-3 border-t border-line">
             {stats.map((stat) => (
-              <div key={stat.label} className="py-4 pr-2">
-                <dt className="font-display text-lg tabular-nums sm:text-2xl">{stat.value}</dt>
+              <div key={stat.label} className="py-3 pr-2">
+                <dt className="font-display text-lg tabular-nums whitespace-nowrap sm:text-2xl">{stat.value}</dt>
                 <dd className="mt-1 text-xs text-muted">{stat.label}</dd>
               </div>
             ))}
@@ -87,7 +87,6 @@ function Home() {
             fetchPriority="high"
             className="aspect-video w-full rounded-2xl object-cover"
           />
-          <figcaption className="mt-2 text-xs text-muted">{copy.thisWeek}</figcaption>
         </figure>
       </section>
 
